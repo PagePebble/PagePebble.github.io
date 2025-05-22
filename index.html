@@ -55,10 +55,12 @@
             align-items: center;
         }
 
-        .logo img {
-            height: 50px; /* Adjust as needed */
-            width: auto;
-        }
+header .logo-container img.logo { /* More specific selector */
+    height: 50px !important; /* Added !important for testing override */
+    width: auto !important;   /* Added !important for testing override */
+    max-height: 50px !important; /* Added max-height for good measure */
+    display: block; /* Sometimes helps with image sizing issues */
+}
         .logo-text {
             font-size: 1.8em;
             font-weight: 700;
