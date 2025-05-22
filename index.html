@@ -583,12 +583,15 @@
             </form>
         </div>
     </div>
-
     <script>
+        console.log("PagePebble Website Script: Initializing...");
+
         // Set current year in footer
         const currentYearEl = document.getElementById('current-year');
         if (currentYearEl) {
             currentYearEl.textContent = new Date().getFullYear();
+        } else {
+            console.error("Element with ID 'current-year' not found.");
         }
         
         // Set effective date for privacy policy
@@ -597,6 +600,8 @@
             const today = new Date();
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             effectiveDateEl.textContent = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+        } else {
+            console.warn("Element with ID 'effective-date' not found (this is inside the privacy modal).");
         }
 
         // --- Privacy Policy Modal Logic ---
@@ -604,22 +609,37 @@
         const showPrivacyLinks = document.querySelectorAll('#show-privacy-link, #show-privacy-link-footer');
         const closePrivacyButton = document.getElementById('close-privacy-modal-button');
 
+        console.log("Privacy Modal Element:", privacyModal);
+        console.log("Show Privacy Links Found:", showPrivacyLinks.length);
+        console.log("Close Privacy Button Element:", closePrivacyButton);
+
+
         function openPrivacyModal() {
+            console.log("Attempting to open Privacy Modal...");
             if (privacyModal) {
                 privacyModal.classList.add('visible');
                 privacyModal.querySelector('.modal-content').scrollTop = 0;
+                console.log("Privacy Modal classList:", privacyModal.classList);
+            } else {
+                console.error("Privacy Modal element is null in openPrivacyModal.");
             }
         }
 
         function closePrivacyModal() {
+            console.log("Attempting to close Privacy Modal...");
             if (privacyModal) {
                 privacyModal.classList.remove('visible');
+                console.log("Privacy Modal classList after close:", privacyModal.classList);
+            } else {
+                console.error("Privacy Modal element is null in closePrivacyModal.");
             }
         }
 
         if (showPrivacyLinks.length > 0 && privacyModal) {
             showPrivacyLinks.forEach(link => {
+                console.log("Attaching click listener to privacy link:", link);
                 link.addEventListener('click', function(event) {
+                    console.log("Privacy link clicked:", event.target);
                     event.preventDefault();
                     openPrivacyModal();
                     if (history.pushState) {
@@ -629,18 +649,25 @@
                     }
                 });
             });
+        } else {
+            if (showPrivacyLinks.length === 0) console.error("No 'show privacy' links found!");
+            if (!privacyModal) console.error("Privacy modal div not found!");
         }
         
         if (closePrivacyButton) {
             closePrivacyButton.addEventListener('click', () => {
+                console.log("Close privacy button clicked.");
                 closePrivacyModal();
                 if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
             });
+        } else {
+             console.error("Close privacy button not found!");
         }
 
         if (privacyModal) {
-            privacyModal.addEventListener('click', function(event) { // Close on overlay click
+            privacyModal.addEventListener('click', function(event) { 
                 if (event.target === privacyModal) {
+                    console.log("Privacy modal overlay clicked.");
                     closePrivacyModal();
                     if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
@@ -649,7 +676,9 @@
         
         // Check if URL hash targets the privacy policy on page load
         if (window.location.hash === '#privacy-policy' || window.location.hash === '#privacy-policy-modal') {
-            if (privacyModal) setTimeout(openPrivacyModal, 50); // slight delay for page rendering
+            console.log("Privacy policy hash detected on page load.");
+            if (privacyModal) setTimeout(openPrivacyModal, 100); // Increased delay slightly
+            else console.error("Privacy modal not found for hash detection.");
         }
 
         // --- Contact/Feedback Form Modal Logic ---
@@ -659,26 +688,43 @@
         const contactFormInModalElement = document.getElementById('contactFormInModal'); 
         const modalFormStatusElement = document.getElementById('modal-form-status'); 
 
+        console.log("Contact Form Modal Element:", contactFormModal);
+        console.log("Show Contact Form Links Found:", showContactFormLinks.length);
+        console.log("Close Contact Form Button Element:", closeContactFormButton);
+        console.log("Contact Form In Modal Element:", contactFormInModalElement);
+        console.log("Modal Form Status Element:", modalFormStatusElement);
+
+
         function openContactFormModal() {
+            console.log("Attempting to open Contact Form Modal...");
             if (contactFormModal) {
                 contactFormModal.classList.add('visible');
                 contactFormModal.querySelector('.modal-content').scrollTop = 0; 
+                console.log("Contact Form Modal classList:", contactFormModal.classList);
                 if (modalFormStatusElement) {
                     modalFormStatusElement.textContent = '';
                     modalFormStatusElement.style.color = ''; 
                 }
+            } else {
+                console.error("Contact Form Modal element is null in openContactFormModal.");
             }
         }
 
         function closeContactFormModal() {
+            console.log("Attempting to close Contact Form Modal...");
             if (contactFormModal) {
                 contactFormModal.classList.remove('visible');
+                console.log("Contact Form Modal classList after close:", contactFormModal.classList);
+            } else {
+                console.error("Contact Form Modal element is null in closeContactFormModal.");
             }
         }
 
         if (showContactFormLinks.length > 0 && contactFormModal) {
             showContactFormLinks.forEach(link => {
+                console.log("Attaching click listener to contact link:", link);
                 link.addEventListener('click', function(event) {
+                    console.log("Contact link clicked:", event.target);
                     event.preventDefault(); 
                     openContactFormModal();
                     if (history.pushState) {
@@ -688,18 +734,25 @@
                     }
                 });
             });
+        } else {
+            if (showContactFormLinks.length === 0) console.error("No 'show contact form' links found!");
+            if (!contactFormModal) console.error("Contact form modal div not found!");
         }
 
         if (closeContactFormButton) { 
             closeContactFormButton.addEventListener('click', () => {
+                console.log("Close contact form button clicked.");
                 closeContactFormModal();
                 if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
             });
+        } else {
+            console.error("Close contact form button not found!");
         }
 
         if (contactFormModal) {
-            contactFormModal.addEventListener('click', function(event) { // Close on overlay click
+            contactFormModal.addEventListener('click', function(event) { 
                 if (event.target === contactFormModal) {
+                    console.log("Contact form modal overlay clicked.");
                     closeContactFormModal();
                     if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
@@ -708,12 +761,16 @@
         
         // Check if URL hash targets a contact form modal on page load
         if (window.location.hash === '#contact-us' || window.location.hash === '#feedback' || window.location.hash === '#contact-form-modal') {
-            if (contactFormModal) setTimeout(openContactFormModal, 50); // slight delay
+            console.log("Contact form hash detected on page load.");
+            if (contactFormModal) setTimeout(openContactFormModal, 100); // Increased delay slightly
+            else console.error("Contact form modal not found for hash detection.");
         }
         
         // --- AJAX for Formspree in Modal ---
         if (contactFormInModalElement && modalFormStatusElement) {
+            console.log("Attaching submit listener to contact form in modal.");
             contactFormInModalElement.addEventListener("submit", async function(event) {
+                console.log("Contact form submitted.");
                 event.preventDefault(); 
                 const form = event.target;
                 const data = new FormData(form);
@@ -722,7 +779,6 @@
                 statusElement.textContent = "Sending...";
                 statusElement.style.color = "var(--primary-blue)";
                 form.querySelector('button[type="submit"]').disabled = true;
-
 
                 try {
                     const response = await fetch(form.action, {
@@ -736,11 +792,10 @@
                         statusElement.style.color = "green";
                         form.reset(); 
                         setTimeout(() => { 
-                           if(contactFormModal.classList.contains('visible')) { // Only close if still visible
+                           if(contactFormModal && contactFormModal.classList.contains('visible')) { 
                              // closeContactFormModal(); 
-                             // if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); }
                            }
-                        }, 4000); // Longer delay to read success message
+                        }, 4000);
                     } else {
                         const responseData = await response.json().catch(() => ({message: "An unexpected error occurred."})); 
                         if (responseData.errors && responseData.errors.length > 0) {
@@ -758,22 +813,35 @@
                      form.querySelector('button[type="submit"]').disabled = false;
                 }
             });
+        } else {
+            if(!contactFormInModalElement) console.error("Contact form element 'contactFormInModal' not found for AJAX!");
+            if(!modalFormStatusElement) console.error("Modal form status element 'modal-form-status' not found for AJAX!");
         }
 
         // Global Escape Key Listener for any open modal
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
+                let modalClosed = false;
                 if (privacyModal && privacyModal.classList.contains('visible')) {
+                    console.log("Escape key: Closing privacy modal.");
                     closePrivacyModal();
-                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
+                    modalClosed = true;
                 }
                 if (contactFormModal && contactFormModal.classList.contains('visible')) {
+                    console.log("Escape key: Closing contact form modal.");
                     closeContactFormModal();
-                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
+                    modalClosed = true;
+                }
+                if (modalClosed && history.pushState) { 
+                    history.pushState(null, null, window.location.pathname + window.location.search); 
+                } else if (modalClosed) {
+                     window.location.hash = '';
                 }
             }
         });
 
+        console.log("PagePebble Website Script: Initialization complete.");
     </script>
+
 </body>
 </html>
