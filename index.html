@@ -17,275 +17,25 @@
             --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ... (ALL YOUR EXISTING CSS RULES GO HERE, UNCHANGED) ... */
+        /* ... up to and including the @media queries ... */
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            color: var(--dark-text);
-            background-color: var(--bg-light);
-            scroll-behavior: smooth;
-        }
-
-        /* Container */
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-header .logo-container img.logo { /* More specific selector */
-    height: 50px !important; /* Added !important for testing override */
-    width: auto !important;   /* Added !important for testing override */
-    max-height: 50px !important; /* Added max-height for good measure */
-    display: block; /* Sometimes helps with image sizing issues */
-}
-        .logo-text {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-left: 10px;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--primary-blue);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover, nav ul li a.active {
-            color: var(--accent-yellow);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #6A8FB8 100%);
-            color: var(--light-text);
-            padding: 80px 0;
-            text-align: center;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero .logo-hero img {
-            height: 120px; /* Larger logo in hero */
-            margin-bottom: 20px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-        }
-
-        .hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .hero p {
-            font-size: 1.3em;
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-yellow);
-            color: var(--dark-text);
-            padding: 15px 35px;
-            font-size: 1.1em;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        /* Sections General */
-        section {
-            padding: 70px 0;
-        }
-        section:nth-child(odd) { /* Alternating bg for sections */
-            /* background-color: var(--bg-medium); */
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5em;
-            color: var(--primary-blue);
-            margin-bottom: 50px;
-            font-weight: 600;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 4px;
-            background-color: var(--accent-yellow);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .feature-item {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .feature-item .icon { /* Placeholder for icons if you add them */
-            font-size: 3em;
-            color: var(--accent-yellow);
-            margin-bottom: 20px;
-        }
-
-        .feature-item h3 {
-            font-size: 1.5em;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        /* Early Adopter / Feedback Section */
-        .feedback-section {
-            background-color: var(--primary-blue);
-            color: var(--light-text);
-            text-align: center;
-        }
-        .feedback-section .section-title {
-            color: var(--light-text);
-        }
-        .feedback-section .section-title::after {
-            background-color: var(--accent-yellow);
-        }
-        .feedback-section p {
-            font-size: 1.1em;
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-        }
-
-    <!-- Contact/Feedback Form Modal Structure -->
-    <div id="contact-form-modal" class="modal-overlay"> <!-- New ID -->
-        <div class="modal-content"> <!-- Re-use .modal-content styling -->
-            <button class="close-modal" id="close-contact-form-modal-button" aria-label="Close contact form">×</button>
-            <h2>Share Feedback or Contact Us</h2>
-            <p style="text-align: center; margin-bottom: 25px;">We'd love to hear from you!</p>
-
-            <!-- Formspree Form (from previous step, with minor style adjustments for modal context) -->
-            <form id="contactFormInModal" action="https://formspree.io/f/xovdbggz" method="POST" style="text-align: left;">
-                
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-name" style="display: block; margin-bottom: 5px; font-weight: 500;">Name (Optional):</label>
-                    <input type="text" id="modal-name" name="name" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.95em;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-email" style="display: block; margin-bottom: 5px; font-weight: 500;">Email (For a reply):</label>
-                    <input type="email" id="modal-email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.95em;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-subject" style="display: block; margin-bottom: 5px; font-weight: 500;">Subject:</label>
-                    <input type="text" id="modal-subject" name="subject" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.95em;">
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label for="modal-message" style="display: block; margin-bottom: 5px; font-weight: 500;">Message/Feedback:</label>
-                    <textarea id="modal-message" name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.95em; resize: vertical;"></textarea>
-                </div>
-                
-                <input type="hidden" name="_gotcha" style="display:none !important">
-
-                <!-- Formspree's built-in AJAX requires a specific setup or their JS library.
-                     For a simple HTML form modal, it will redirect to Formspree on submit.
-                     To prevent redirection and show status in the modal, you'd need custom JS for AJAX.
-                     For now, let's keep it simple; the user will be redirected to Formspree's thank you page.
-                     We can add a note about this.
-                -->
-                <p id="modal-form-status" style="text-align: center; margin-top: 10px; font-size: 0.9em;"></p>
-
-
-                <div style="text-align: center; margin-top:10px;">
-                    <button type="submit" class="cta-button" style="background-color: var(--primary-blue); color: var(--light-text); padding: 12px 25px;">Send Message</button>
-                </div>
-                 <p style="text-align: center; font-size: 0.8em; color: #777; margin-top: 15px;">
-                    (You will be briefly redirected to Formspree to confirm submission.)
-                </p>
-            </form>
-        </div>
-    </div>
-        /* Privacy Policy Modal */
-        .modal-overlay {
+        /* Privacy Policy Modal & Contact Form Modal (SHARED STYLES) */
+        .modal-overlay { /* This rule was already there, ensure it has display: none; */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            display: none; /* Hidden by default */
+            display: none; /* Hidden by default - THIS IS KEY */
             justify-content: center;
             align-items: center;
             z-index: 2000;
             padding: 20px;
         }
 
-        .modal-content {
+        .modal-content { /* This rule was already there */
             background-color: #fff;
             padding: 30px 40px;
             border-radius: var(--border-radius);
@@ -296,25 +46,25 @@ header .logo-container img.logo { /* More specific selector */
             overflow-y: auto;
             position: relative;
         }
-        .modal-content h2 {
+        .modal-content h2 { /* This rule was already there */
             color: var(--primary-blue);
             margin-bottom: 20px;
         }
-        .modal-content h3 {
+        .modal-content h3 { /* This rule was already there */
             color: var(--primary-blue);
             margin-top: 20px;
             margin-bottom: 10px;
             font-size: 1.2em;
         }
-        .modal-content p, .modal-content ul {
+        .modal-content p, .modal-content ul { /* This rule was already there */
             margin-bottom: 15px;
             line-height: 1.8;
         }
-        .modal-content ul {
+        .modal-content ul { /* This rule was already there */
             padding-left: 20px;
         }
 
-        .close-modal {
+        .close-modal { /* This rule was already there */
             position: absolute;
             top: 15px;
             right: 20px;
@@ -325,381 +75,202 @@ header .logo-container img.logo { /* More specific selector */
             cursor: pointer;
             line-height: 1;
         }
-        .close-modal:hover {
+        .close-modal:hover { /* This rule was already there */
             color: var(--accent-yellow);
         }
 
-        /* Contact Section */
-        .contact-section .container {
-            text-align: center;
-        }
-        .contact-section p {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark-text);
-            color: var(--bg-medium);
-            text-align: center;
-            padding: 30px 0;
-        }
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
-        }
-        footer a {
-            color: var(--accent-yellow);
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-            }
-            .logo-container {
-                margin-bottom: 15px;
-            }
-            nav ul {
-                justify-content: center;
-                padding-left: 0; /* Reset padding for centered items */
-            }
-            nav ul li {
-                margin: 0 10px;
-            }
-
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            .hero p {
-                font-size: 1.1em;
-            }
-            .section-title {
-                font-size: 2em;
-            }
-        }
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2em;
-            }
-            nav ul li {
-                margin: 0 8px; /* Slightly less margin for very small screens */
-            }
-        }
+        /* ... (any other CSS rules like .contact-section, footer, etc.) ... */
 
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <a href="#" class="logo-container">
-                <img src="./logo.png" alt="PagePebble Logo" class="logo"> <!-- MAKE SURE logo.png is in the same directory -->
-                <span class="logo-text">PagePebble</span>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#early-access">Join Us</a></li>
-                    <li><a href="#privacy-policy-modal" id="show-privacy-link">Privacy Policy</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+        <!-- ... (Your header HTML - UNCHANGED) ... -->
     </header>
 
     <main>
-        <section class="hero">
-            <div class="logo-hero">
-                <img src="./logo.png" alt="PagePebble Logo"> <!-- MAKE SURE logo.png is in the same directory -->
-            </div>
-            <h1>PagePebble: Notes That Stick With Your Web.</h1>
-            <p>Never lose a thought on a webpage again. Create beautiful, persistent sticky notes that **automatically reappear exactly where you left them** every time you revisit a page. Simple, intuitive, and powerful.</p>
-            <a href="YOUR_CHROME_WEB_STORE_LINK_HERE" class="cta-button" target="_blank" rel="noopener noreferrer">Install PagePebble for Chrome</a>
-        </section>
-
-        <section id="features" class="features-section">
-            <div class="container">
-                <h2 class="section-title">Why You'll Love PagePebble</h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="icon">✨</div> <!-- You can use emojis or SVG icons here -->
-                        <h3>Notes That Remember</h3>
-                        <p>The magic of PagePebble? Your notes **automatically reappear** when you return to a webpage. No clicks needed, it’s just there, right where you placed it and sized it.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">📌</div>
-                        <h3>Customize Your Space</h3>
-                        <p>Drag your notes anywhere on the page. Resize them to fit your content perfectly. Your layout preferences are saved automatically for each specific page.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">✔️</div>
-                        <h3>Checklists & To-Dos</h3>
-                        <p>Quickly add checkboxes to your notes to create simple to-do lists or track tasks directly on the relevant webpage. Click to check, and it saves!</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🎨</div>
-                        <h3>Modern & Clean Interface</h3>
-                        <p>Enjoy a beautifully designed, unobtrusive note window with a modern blurred transparency that feels right at home on any webpage.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🔒</div>
-                        <h3>Private & Secure</h3>
-                        <p>All your notes, their positions, and sizes are stored securely and locally in your browser. Nothing is sent to any server.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🚀</div>
-                        <h3>Lightweight & Fast</h3>
-                        <p>PagePebble is built to be efficient, ensuring it doesn't slow down your browsing experience while providing powerful note-taking features.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="early-access" class="feedback-section">
-            <div class="container">
-                <h2 class="section-title">You're an Early Adopter!</h2>
-                <p>PagePebble is growing, and your voice matters immensely! As one of our early users, you have the unique opportunity to shape its future. We're passionate about building the best webpage note-taking experience, and we can't do it without you.</p>
-                <p>Encounter a quirk? Have a brilliant idea for a new feature you're dreaming of? Please share your feedback! Let's build something amazing together.</p>
-                <a href="#contact-form-modal" id="show-contact-form-feedback-link" class="cta-button" style="background-color: var(--accent-yellow); color: var(--dark-text);">Share Your Feedback & Ideas</a>
-            </div>
-        </section>
-
-        <section id="contact" class="contact-section">
-            <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <p>Have questions, suggestions, or just want to say hi? We'd love to hear from you!</p>
-        <a href="#contact-form-modal" id="show-contact-form-contact-link" class="cta-button">Contact the PagePebble Team</a>
-            </div>
-        </section>
-
+        <!-- ... (Your main content sections: hero, features, early-access, contact - UNCHANGED) ... -->
+        <!-- The links within these sections should have the correct IDs: -->
+        <!-- e.g., id="show-contact-form-feedback-link" and id="show-contact-form-contact-link" -->
+        <!-- e.g., id="show-privacy-link" and id="show-privacy-link-footer" -->
     </main>
 
     <footer>
-        <div class="container">
-            <p>© <span id="current-year"></span> PagePebble. All rights reserved.</p>
-            <p><a href="#privacy-policy-modal" id="show-privacy-link-footer">Privacy Policy</a></p>
-        </div>
+        <!-- ... (Your footer HTML - UNCHANGED) ... -->
     </footer>
 
+    <!-- MODAL HTML STRUCTURES GO HERE - OUTSIDE <style>, INSIDE <body>, BEFORE <script> -->
+
     <!-- Privacy Policy Modal Structure -->
-    <div id="privacy-policy-modal" class="modal-overlay">
+    <div id="privacy-policy-modal" class="modal-overlay"> <!-- Ensure class="modal-overlay" is here -->
         <div class="modal-content">
             <button class="close-modal" id="close-privacy-modal-button" aria-label="Close privacy policy">×</button>
             <h2>Privacy Policy for PagePebble</h2>
-            
-            <p><strong>Effective Date:</strong> <span id="effective-date"></span></p>
-
-            <p>PagePebble ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how PagePebble handles your information when you use our Chrome extension.</p>
-
-            <h3>Information We Collect & Store</h3>
-            <p>PagePebble is designed with your privacy as a priority. The extension stores the following information solely on your local computer using Chrome's local storage API (`chrome.storage.local`):</p>
-            <ul>
-                <li><strong>Note Content:</strong> The text and checkbox data you type into your PagePebble notes.</li>
-                <li><strong>Note Position:</strong> The top and left coordinates defining where you place your note window on a specific webpage.</li>
-                <li><strong>Note Size:</strong> The width and height dimensions you set for your note window on a specific webpage.</li>
-            </ul>
-            <p>This information is always associated with the specific URL of the webpage for which the note was created.</p>
-
-            <h3>How We Use Your Information</h3>
-            <p>The information collected and stored locally by PagePebble is used exclusively for the following purposes:</p>
-            <ul>
-                <li>To display your notes on the web pages you have created them for when you revisit those pages.</li>
-                <li>To remember and restore the last known position and size of your note windows for each specific webpage, ensuring a consistent user experience.</li>
-                <li>To manage the checked/unchecked state of checkboxes within your notes.</li>
-            </ul>
-
-            <h3>Data Storage, Security, and Transmission</h3>
-            <p><strong>All data created and managed by PagePebble is stored locally within your web browser's storage on your device. This data is NOT transmitted to, or stored on, any external servers. We do not have access to your notes or any of the data PagePebble stores.</strong></p>
-            <p>The security of your locally stored data depends on the security of your computer and your Chrome browser profile.</p>
-
-            <h3>Your Control Over Your Data</h3>
-            <p>You have full control over the data PagePebble stores:</p>
-            <ul>
-                <li>You can edit or delete the content of any note at any time.</li>
-                <li>Deleting all content from a note and saving it effectively removes the note for that specific page (it will no longer automatically reappear).</li>
-                <li>Using the "Delete Note" (trash icon) button within the PagePebble window will remove the note content, its position, and size data for that specific URL from local storage.</li>
-                <li>Uninstalling the PagePebble Chrome extension will typically result in the removal of all data that PagePebble has stored locally in your browser.</li>
-            </ul>
-            
-            <h3>Permissions</h3>
-            <p>PagePebble requires the following Chrome permissions to function:</p>
-            <ul>
-                <li><strong>storage:</strong> To save your notes, positions, and sizes locally.</li>
-                <li><strong>activeTab & scripting:</strong> To display the note interface on the webpages you visit and to enable interaction when you click the extension icon. Our content script also runs on pages (as defined by `<all_urls>`) to automatically show your notes.</li>
-            </ul>
-            <p>We only request permissions essential for the core functionality of the extension.</p>
-
-            <h3>Third-Party Services</h3>
-            <p>PagePebble does not integrate with any third-party services for data collection or tracking within the extension itself. The "Contact Us" and "Feedback" links on our promotional webpage may direct you to third-party services like Formspree for form submissions, which have their own privacy policies.</p>
-
-            <h3>Changes to This Privacy Policy</h3>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this promotional webpage. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
-
-            <h3>Contact Us</h3>
-            <p>If you have any questions about this Privacy Policy, please contact us via the form provided on our website: <a href="https://formspree.io/f/xovdbggz" target="_blank" rel="noopener noreferrer">Contact PagePebble Team</a>.</p>
+            <!-- ... (REST OF YOUR PRIVACY POLICY CONTENT - UNCHANGED) ... -->
         </div>
     </div>
 
+    <!-- Contact/Feedback Form Modal Structure -->
+    <div id="contact-form-modal" class="modal-overlay"> <!-- Ensure class="modal-overlay" is here -->
+        <div class="modal-content">
+            <button class="close-modal" id="close-contact-form-modal-button" aria-label="Close contact form">×</button>
+            <h2>Share Feedback or Contact Us</h2>
+            <p style="text-align: center; margin-bottom: 25px;">We'd love to hear from you!</p>
+            <form id="contactFormInModal" action="https://formspree.io/f/xovdbggz" method="POST" style="text-align: left;">
+                <!-- ... (REST OF YOUR FORM FIELDS - UNCHANGED) ... -->
+                 <p id="modal-form-status" style="text-align: center; margin-top: 10px; font-size: 0.9em;"></p>
+                <div style="text-align: center; margin-top:10px;">
+                    <button type="submit" class="cta-button" style="background-color: var(--primary-blue); color: var(--light-text); padding: 12px 25px;">Send Message</button>
+                </div>
+                 <p style="text-align: center; font-size: 0.8em; color: #777; margin-top: 15px;">
+                    (You will be briefly redirected to Formspree to confirm submission if JavaScript for AJAX fails or is disabled.)
+                </p>
+            </form>
+        </div>
+    </div>
+
+
     <script>
+        // --- START: Ensure this entire script block is correct and not duplicated ---
+
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
-        // Set effective date for privacy policy (e.g., today)
+        // Set effective date for privacy policy
         const today = new Date();
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        document.getElementById('effective-date').textContent = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+        if (document.getElementById('effective-date')) { // Check if element exists
+            document.getElementById('effective-date').textContent = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+        }
 
         // Privacy Policy Modal Logic
         const privacyModal = document.getElementById('privacy-policy-modal');
         const showPrivacyLinks = document.querySelectorAll('#show-privacy-link, #show-privacy-link-footer');
         const closePrivacyButton = document.getElementById('close-privacy-modal-button');
 
-        function openModal() {
-            privacyModal.style.display = 'flex';
-            // Add this to make the modal content scroll to top when opened
-            privacyModal.querySelector('.modal-content').scrollTop = 0;
+        function openPrivacyModal() { // Renamed for clarity
+            if (privacyModal) {
+                privacyModal.style.display = 'flex';
+                privacyModal.querySelector('.modal-content').scrollTop = 0;
+            }
         }
 
-        function closeModal() {
-            privacyModal.style.display = 'none';
+        function closePrivacyModal() { // Renamed for clarity
+            if (privacyModal) {
+                privacyModal.style.display = 'none';
+            }
         }
 
-        showPrivacyLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                openModal();
-                // Update hash for direct linkability without page jump
-                if (history.pushState) {
-                    history.pushState(null, null, '#privacy-policy');
-                } else {
-                    window.location.hash = 'privacy-policy';
+        if (showPrivacyLinks.length > 0 && privacyModal) {
+            showPrivacyLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openPrivacyModal();
+                    if (history.pushState) {
+                        history.pushState(null, null, '#privacy-policy');
+                    } else {
+                        window.location.hash = 'privacy-policy';
+                    }
+                });
+            });
+        }
+        
+        if (closePrivacyButton) {
+            closePrivacyButton.addEventListener('click', () => {
+                closePrivacyModal();
+                if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
+            });
+        }
+
+        if (privacyModal) {
+            privacyModal.addEventListener('click', function(event) {
+                if (event.target === privacyModal) {
+                    closePrivacyModal();
+                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
             });
-        });
-        
-        closePrivacyButton.addEventListener('click', closeModal);
 
-        // Close modal if overlay is clicked
-        privacyModal.addEventListener('click', function(event) {
-            if (event.target === privacyModal) {
-                closeModal();
-                 // Remove hash when closing via overlay click
-                if (history.pushState) {
-                    history.pushState(null, null, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && privacyModal.style.display === 'flex') {
+                    closePrivacyModal();
+                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
-            }
-        });
-
-        // Handle escape key to close modal
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && privacyModal.style.display === 'flex') {
-                closeModal();
-                 // Remove hash when closing via escape
-                if (history.pushState) {
-                    history.pushState(null, null, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
-                }
-            }
-        });
+            });
+        }
         
-        // Check if URL hash targets the privacy policy on page load
         if (window.location.hash === '#privacy-policy' || window.location.hash === '#privacy-policy-modal') {
-            openModal();
+            if (privacyModal) openPrivacyModal();
         }
 
         // Contact/Feedback Form Modal Logic
         const contactFormModal = document.getElementById('contact-form-modal');
-        // Select all links that should open the contact form modal
-        const showContactFormLinks = document.querySelectorAll('#show-contact-form-feedback-link, #show-contact-form-contact-link');
+        const showContactFormLinks = document.querySelectorAll('#show-contact-form-feedback-link, #show-contact-form-contact-link'); // This is the correct variable
         const closeContactFormButton = document.getElementById('close-contact-form-modal-button');
-        const contactFormInModalElement = document.getElementById('contactFormInModal'); // Get the form
-        const modalFormStatusElement = document.getElementById('modal-form-status'); // Get the status p
+        const contactFormInModalElement = document.getElementById('contactFormInModal'); 
+        const modalFormStatusElement = document.getElementById('modal-form-status'); 
 
         function openContactFormModal() {
-            contactFormModal.style.display = 'flex';
-            contactFormModal.querySelector('.modal-content').scrollTop = 0; // Scroll to top
-             // Clear any previous status messages
-            if (modalFormStatusElement) {
-                modalFormStatusElement.textContent = '';
-                modalFormStatusElement.style.color = ''; // Reset color
+            if (contactFormModal) {
+                contactFormModal.style.display = 'flex';
+                contactFormModal.querySelector('.modal-content').scrollTop = 0; 
+                if (modalFormStatusElement) {
+                    modalFormStatusElement.textContent = '';
+                    modalFormStatusElement.style.color = ''; 
+                }
             }
         }
 
         function closeContactFormModal() {
-            contactFormModal.style.display = 'none';
+            if (contactFormModal) {
+                contactFormModal.style.display = 'none';
+            }
         }
 
-        showContactFormLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor behavior
-                openContactFormModal();
-                // Update hash for direct linkability
-                if (history.pushState) {
-                    history.pushState(null, null, '#contact-us'); // Or #feedback
-                } else {
-                    window.location.hash = 'contact-us';
-                }
+        if (showContactFormLinks.length > 0 && contactFormModal) { // Ensure links and modal exist
+            showContactFormLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    openContactFormModal();
+                    if (history.pushState) {
+                        history.pushState(null, null, '#contact-us'); 
+                    } else {
+                        window.location.hash = 'contact-us';
+                    }
+                });
             });
-        });
+        }
 
-        if(closeContactFormButton) { // Check if button exists
+        if (closeContactFormButton) { 
             closeContactFormButton.addEventListener('click', () => {
                 closeContactFormModal();
-                // Remove hash when closing
-                if (history.pushState) {
-                    history.pushState(null, null, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
+                if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
+            });
+        }
+
+        if (contactFormModal) {
+            contactFormModal.addEventListener('click', function(event) {
+                if (event.target === contactFormModal) {
+                    closeContactFormModal();
+                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
+                }
+            });
+        
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && contactFormModal.style.display === 'flex') {
+                    closeContactFormModal();
+                    if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
             });
         }
 
-        // Close modal if overlay is clicked
-        contactFormModal.addEventListener('click', function(event) {
-            if (event.target === contactFormModal) {
-                closeContactFormModal();
-                // Remove hash when closing
-                if (history.pushState) {
-                    history.pushState(null, null, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
-                }
-            }
-        });
-        
-        // Handle escape key to close contact form modal
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && contactFormModal.style.display === 'flex') {
-                closeContactFormModal();
-                // Remove hash when closing
-                if (history.pushState) {
-                    history.pushState(null, null, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '';
-                }
-            }
-        });
-
-        // Optional: Check if URL hash targets a contact form modal on page load
         if (window.location.hash === '#contact-us' || window.location.hash === '#feedback' || window.location.hash === '#contact-form-modal') {
-            openContactFormModal();
+            if (contactFormModal) openContactFormModal();
         }
         
-        // --- START: Basic AJAX for Formspree in Modal (Optional, but better UX) ---
-        // This prevents full page reload and shows status in modal.
-        // Note: Formspree also offers a JS library for more advanced AJAX.
-        if (contactFormInModalElement) {
+        if (contactFormInModalElement && modalFormStatusElement) { // Ensure form and status elements exist
             contactFormInModalElement.addEventListener("submit", async function(event) {
-                event.preventDefault(); // Prevent default submission
+                event.preventDefault(); 
                 
                 const form = event.target;
                 const data = new FormData(form);
@@ -712,37 +283,31 @@ header .logo-container img.logo { /* More specific selector */
                     const response = await fetch(form.action, {
                         method: form.method,
                         body: data,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
+                        headers: { 'Accept': 'application/json' }
                     });
 
                     if (response.ok) {
                         statusElement.textContent = "Thanks for your message! We'll be in touch soon.";
                         statusElement.style.color = "green";
-                        form.reset(); // Clear the form
-                        setTimeout(() => { // Optionally close modal after success
-                           // closeContactFormModal(); 
-                           // if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); }
-                        }, 3000);
+                        form.reset(); 
+                        // setTimeout(() => { closeContactFormModal(); if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); }}, 3000);
                     } else {
-                        // Try to get error message from Formspree response
-                        const responseData = await response.json();
+                        const responseData = await response.json().catch(() => ({})); // Gracefully handle non-JSON error responses
                         if (responseData.errors && responseData.errors.length > 0) {
-                            statusElement.textContent = responseData.errors.map(error => error.message).join(", ");
+                            statusElement.textContent = responseData.errors.map(error => error.message || 'Unknown error').join(", ");
                         } else {
-                            statusElement.textContent = "Oops! There was a problem submitting your form.";
+                            statusElement.textContent = "Oops! There was a problem submitting your form. Please try again.";
                         }
                         statusElement.style.color = "red";
                     }
                 } catch (error) {
-                    statusElement.textContent = "Oops! There was a network error.";
+                    console.error("Form submission error:", error); // Log the actual error
+                    statusElement.textContent = "Oops! There was a network error. Please check your connection.";
                     statusElement.style.color = "red";
                 }
             });
         }
-        // --- END: Basic AJAX for Formspree in Modal ---
-
+        // --- END: Ensure this entire script block is correct and not duplicated ---
     </script>
 </body>
 </html>
