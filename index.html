@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PagePebble - Your Webpage Sticky Notes Reimagined</title>
+    <title>PagePebble V1.0 - Your Webpage Sticky Notes, Reimagined</title>
     <style>
-        /* Basic Reset & Defaults */
+        /* Basic Reset & Modern Defaults */
         :root {
-            --primary-blue: #4A729D; /* Extracted from logo's blueish bg */
-            --accent-yellow: #F2C057; /* Extracted from logo's yellow note */
-            --dark-text: #333;
+            --primary-blue: #4A729D;
+            --primary-blue-dark: #3e6084;
+            --accent-yellow: #F2C057;
+            --accent-yellow-light: #f9d88a;
+            --dark-text: #212529;
             --light-text: #f8f9fa;
             --bg-light: #f8f9fa;
-            --bg-medium: #e9ecef; /* For alternating sections if desired */
-            --border-radius: 8px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --bg-medium: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         * {
@@ -23,12 +26,15 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.7;
             color: var(--dark-text);
             background-color: var(--bg-light);
-            scroll-behavior: smooth;
         }
 
         /* Container */
@@ -36,7 +42,6 @@
             width: 90%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 20px 0; /* Adjusted for header/footer */
         }
 
         /* Header & Navigation */
@@ -53,21 +58,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0; /* Reset padding for inner container */
         }
 
-        /* Corrected logo sizing */
         header .logo-container img.logo {
             height: 50px;
-            width: auto; /* maintain aspect ratio */
-            display: block; /* Prevents extra space below image */
+            width: auto;
+            display: block;
         }
 
         .logo-text {
             font-size: 1.8em;
             font-weight: 700;
             color: var(--primary-blue);
-            margin-left: 10px;
+            margin-left: 12px;
         }
         .logo-container {
             display: flex;
@@ -81,7 +84,7 @@
         }
 
         nav ul li {
-            margin-left: 25px;
+            margin-left: 28px;
         }
 
         nav ul li a {
@@ -89,19 +92,29 @@
             color: var(--primary-blue);
             font-weight: 500;
             transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
         }
-
-        nav ul li a:hover, nav ul li a.active {
-            color: var(--accent-yellow);
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-yellow);
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after, nav ul li a.active::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #6A8FB8 100%);
             color: var(--light-text);
-            padding: 80px 20px; /* Added horizontal padding */
+            padding: 100px 20px;
             text-align: center;
-            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -109,119 +122,178 @@
         }
         .hero .logo-hero img {
             height: 120px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            margin-bottom: 25px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.25));
         }
 
         .hero h1 {
-            font-size: 3.2em; /* Slightly adjusted for responsiveness */
+            font-size: 3.5em;
             margin-bottom: 20px;
             line-height: 1.2;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         .hero p {
-            font-size: 1.25em; /* Slightly adjusted */
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            opacity: 0.9;
+            font-size: 1.3em;
+            max-width: 750px;
+            margin: 0 auto 35px auto;
+            opacity: 0.95;
         }
 
         .cta-button {
             display: inline-block;
             background-color: var(--accent-yellow);
             color: var(--dark-text);
-            padding: 14px 30px; /* Slightly adjusted */
-            font-size: 1.05em; /* Slightly adjusted */
+            padding: 15px 35px;
+            font-size: 1.1em;
             font-weight: 600;
             text-decoration: none;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: none; /* Ensure buttons look like buttons */
-            cursor: pointer; /* Ensure pointer cursor */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-hover);
+            background-color: var(--accent-yellow-light);
+        }
+        
+        .cta-button.secondary {
+            background-color: transparent;
+            color: var(--light-text);
+            border: 2px solid var(--accent-yellow);
+            margin-left: 15px;
+        }
+        .cta-button.secondary:hover {
+            background-color: var(--accent-yellow);
+            color: var(--dark-text);
         }
 
         /* Sections General */
         section {
-            padding: 70px 0;
+            padding: 80px 0;
         }
-        /* Example for alternating section backgrounds - enable if desired */
-        /* section.alternate-bg { 
+        section.alternate-bg { 
             background-color: var(--bg-medium);
-        } */
+        }
 
         .section-title {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.8em;
             color: var(--primary-blue);
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             font-weight: 600;
             position: relative;
         }
         .section-title::after {
             content: '';
             display: block;
-            width: 70px;
+            width: 80px;
             height: 4px;
             background-color: var(--accent-yellow);
             margin: 15px auto 0;
             border-radius: 2px;
         }
 
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
-            gap: 30px; /* Adjusted gap */
-            text-align: center;
+        /* Video Showcase Section */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-hover);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
-        .feature-item {
-            background-color: #fff;
-            padding: 30px 25px; /* Adjusted padding */
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            align-items: start;
+        }
+        .gallery-item {
+            text-align: center;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #ddd;
+        }
+        .gallery-item img:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-hover);
+        }
+        .gallery-item .caption {
+            margin-top: 20px;
+            font-size: 1.05em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+        .feature-item {
+            background-color: #fff;
+            padding: 35px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
         }
         .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
-
         .feature-item .icon {
-            font-size: 2.8em; /* Adjusted icon size */
-            color: var(--accent-yellow);
-            margin-bottom: 20px;
+            font-size: 2.5em;
             line-height: 1;
+            margin-bottom: 20px;
         }
-
         .feature-item h3 {
-            font-size: 1.4em; /* Adjusted heading size */
+            font-size: 1.5em;
             color: var(--primary-blue);
             margin-bottom: 15px;
         }
-        .feature-item p {
-            font-size: 0.95em; /* Adjusted paragraph size */
-        }
 
-        /* Early Adopter / Feedback Section */
+        /* Feedback Section */
         .feedback-section {
-            background-color: var(--primary-blue); /* Re-using primary blue */
+            background: linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 100%);
             color: var(--light-text);
             text-align: center;
+            border-radius: var(--border-radius);
+            padding: 60px 40px;
+            margin: 0 auto;
         }
         .feedback-section .section-title {
-            color: var(--light-text); /* Title color contrast */
+            color: var(--light-text);
         }
         .feedback-section .section-title::after {
-            background-color: var(--accent-yellow); /* Accent for title underline */
+            background-color: var(--accent-yellow);
         }
         .feedback-section p {
             font-size: 1.1em;
@@ -229,126 +301,12 @@
             margin: 0 auto 30px auto;
         }
 
-
-        /* Modal Styles (Shared by Privacy & Contact Form) */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.65);
-    display: flex; /* Use flex to center content even if visibility is used for show/hide */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    padding: 20px;
-    
-    opacity: 0;
-    visibility: hidden;
-    /* When HIDING: visibility changes AFTER opacity transition */
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s; 
-}
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-    /* When SHOWING: visibility changes IMMEDIATELY, opacity transitions */
-    transition: opacity 0.3s ease, visibility 0s linear 0s; 
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 30px 35px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
-    max-width: 700px;
-    width: 95%;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative; /* For stacking context and absolute positioned close button */
-    
-    transform: translateY(20px) scale(0.98); /* Start slightly down and smaller for pop-up */
-    opacity: 0;
-    /* Transition for the content itself */
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0.05s, opacity 0.3s ease 0.05s; /* Added slight delay for content */
-}
-
-.modal-overlay.visible .modal-content {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-}
-
-        .modal-content h2 {
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.8em;
-        }
-        .modal-content h3 {
-            color: var(--primary-blue);
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        .modal-content p, .modal-content ul {
-            margin-bottom: 15px;
-            line-height: 1.8;
-            font-size: 0.95em;
-        }
-        .modal-content ul {
-            padding-left: 20px;
-        }
-        .modal-content label {
-            display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9em;
-        }
-        .modal-content input[type="text"],
-        .modal-content input[type="email"],
-        .modal-content textarea {
-            width: 100%; 
-            padding: 10px; 
-            border: 1px solid #ccc; 
-            border-radius: calc(var(--border-radius) - 2px); /* Slightly smaller radius */
-            font-size: 0.95em;
-            margin-bottom: 10px; /* Space below inputs */
-        }
-        .modal-content textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-
-        .close-modal {
-            position: absolute;
-            top: 10px; /* Adjusted position */
-            right: 15px; /* Adjusted position */
-            font-size: 2.2em; /* Slightly larger */
-            color: #aaa; /* Lighter close button */
-            background: none;
-            border: none;
-            cursor: pointer;
-            line-height: 1;
-            padding: 5px;
-            transition: color 0.2s ease;
-        }
-        .close-modal:hover {
-            color: var(--dark-text);
-        }
-
-        /* Contact Section (can be minimal if form is in modal) */
-        .contact-section .container {
-            text-align: center;
-        }
-        .contact-section p {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-
         /* Footer */
         footer {
-            background-color: #343a40; /* Darker footer */
-            color: #adb5bd; /* Lighter text for dark bg */
+            background-color: #343a40;
+            color: #adb5bd;
             text-align: center;
-            padding: 40px 0; /* More padding */
+            padding: 40px 0;
         }
         footer p {
             margin: 5px 0;
@@ -362,59 +320,67 @@
             text-decoration: underline;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                padding: 0 15px; /* Add padding for container on mobile */
-            }
-            .logo-container {
-                margin-bottom: 15px;
-            }
-            nav ul {
-                justify-content: center;
-                padding-left: 0;
-                flex-wrap: wrap; /* Allow nav items to wrap */
-            }
-            nav ul li {
-                margin: 5px 10px; /* Adjust margin for wrapped items */
-            }
+        /* --- MODAL STYLES (Unchanged from original for stability) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.65); display: flex;
+            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s; 
+        }
+        .modal-overlay.visible {
+            opacity: 1; visibility: visible;
+            transition: opacity 0.3s ease, visibility 0s linear 0s; 
+        }
+        .modal-content {
+            background-color: #fff; padding: 30px 35px; border-radius: var(--border-radius);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.25); max-width: 700px; width: 95%;
+            max-height: 85vh; overflow-y: auto; position: relative;
+            transform: translateY(20px) scale(0.98); opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0.05s, opacity 0.3s ease 0.05s;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0) scale(1); opacity: 1;
+        }
+        .modal-content h2 { color: var(--primary-blue); margin-bottom: 20px; text-align: center; font-size: 1.8em; }
+        .modal-content h3 { color: var(--primary-blue); margin-top: 20px; margin-bottom: 10px; font-size: 1.2em; }
+        .modal-content p, .modal-content ul { margin-bottom: 15px; line-height: 1.8; font-size: 0.95em; }
+        .modal-content ul { padding-left: 20px; }
+        .modal-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9em; }
+        .modal-content input[type="text"], .modal-content input[type="email"], .modal-content textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: calc(var(--border-radius) - 4px);
+            font-size: 0.95em; margin-bottom: 10px;
+        }
+        .modal-content textarea { resize: vertical; min-height: 100px; }
+        .close-modal {
+            position: absolute; top: 10px; right: 15px; font-size: 2.2em; color: #aaa;
+            background: none; border: none; cursor: pointer; line-height: 1; padding: 5px;
+            transition: color 0.2s ease;
+        }
+        .close-modal:hover { color: var(--dark-text); }
 
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            .hero p {
-                font-size: 1.1em;
-            }
-            .section-title {
-                font-size: 2em;
-            }
-            .features-grid {
-                grid-template-columns: 1fr; /* Stack features on smaller screens */
-            }
+        /* Responsive */
+        @media (max-width: 992px) {
+            .gallery-grid { grid-template-columns: 1fr; gap: 50px; }
+        }
+        @media (max-width: 768px) {
+            header .container { flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 2.8em; }
+            .hero p { font-size: 1.15em; }
+            .section-title { font-size: 2.2em; }
+            .features-grid { grid-template-columns: 1fr; }
+            .hero .cta-button { margin-bottom: 10px; }
+            .hero .cta-button.secondary { margin-left: 0; }
         }
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.1em;
-            }
-             .hero p {
-                font-size: 1em;
-            }
-            nav ul li {
-                margin: 5px 8px;
-            }
-            .cta-button {
-                padding: 12px 25px;
-                font-size: 1em;
-            }
-            .modal-content {
-                padding: 20px 25px;
-            }
-            .modal-content h2 {
-                font-size: 1.5em;
-            }
+            nav ul { flex-wrap: wrap; justify-content: center; padding-left: 0; }
+            nav ul li { margin: 5px 12px; }
+            .hero h1 { font-size: 2.2em; }
+            .hero p { font-size: 1em; }
+            .cta-button { padding: 12px 25px; font-size: 1em; width: 100%; max-width: 300px; }
+            .modal-content { padding: 25px 20px; }
+            .modal-content h2 { font-size: 1.5em; }
         }
-
     </style>
 </head>
 <body>
@@ -422,15 +388,15 @@
     <header>
         <div class="container">
             <a href="#" class="logo-container">
-                <img src="./logo.png" alt="PagePebble Logo" class="logo"> <!-- ENSURE 'logo.png' IS CORRECTLY NAMED & PLACED -->
+                <img src="./assets/logo.png" alt="PagePebble Logo" class="logo">
                 <span class="logo-text">PagePebble</span>
             </a>
             <nav>
                 <ul>
+                    <li><a href="#whats-new">What's New</a></li>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#early-access">Join Us</a></li>
-                    <li><a href="#privacy-policy-modal" id="show-privacy-link">Privacy Policy</a></li>
-                    <li><a href="#contact-us-trigger" id="show-contact-form-nav-link">Contact</a></li> <!-- Changed href for nav contact -->
+                    <li><a href="#show-contact-form-nav-link" id="show-contact-form-nav-link">Contact</a></li>
+                    <li><a href="#show-privacy-link" id="show-privacy-link">Privacy</a></li>
                 </ul>
             </nav>
         </div>
@@ -439,65 +405,98 @@
     <main>
         <section class="hero">
             <div class="logo-hero">
-                <img src="./logo.png" alt="PagePebble Logo"> <!-- ENSURE 'logo.png' IS CORRECTLY NAMED & PLACED -->
+                <img src="./assets/logo.png" alt="PagePebble Logo">
             </div>
-            <h1>PagePebble: Notes That Stick With Your Web.</h1>
-            <p>Never lose a thought on a webpage again. Create beautiful, persistent sticky notes that <strong>automatically reappear exactly where you left them</strong> every time you revisit a page. Simple, intuitive, and powerful.</p>
-            <a href="YOUR_CHROME_WEB_STORE_LINK_HERE" class="cta-button" target="_blank" rel="noopener noreferrer">Install PagePebble for Chrome</a>
+            <h1>Your Web, Your Notebook. Redesigned.</h1>
+            <p>The sticky note extension you love is now supercharged. Create multiple notes per page, access notes across websites, and manage everything in a powerful new dashboard. It's never been easier to capture, organize, and recall your thoughts online.</p>
+            <div>
+                <!-- EDIT ME: Replace with your actual Chrome Web Store link -->
+                <a href="https://chromewebstore.google.com/detail/pagepebble-sticky-notes-f/ndmfjgkdalopmkladlbabnnnmlolndom" class="cta-button" target="_blank" rel="noopener noreferrer">Add to Chrome - It's Free</a>
+                <a href="#whats-new" class="cta-button secondary">See What's New</a>
+            </div>
         </section>
 
-        <section id="features" class="features-section">
+        <section id="whats-new">
             <div class="container">
-                <h2 class="section-title">Why You'll Love PagePebble</h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="icon">✨</div>
-                        <h3>Notes That Remember</h3>
-                        <p>The magic of PagePebble? Your notes <strong>automatically reappear</strong> when you return to a webpage. No clicks needed, it’s just there, right where you placed it and sized it.</p>
+                <h2 class="section-title">Introducing PagePebble V1.0</h2>
+                <div class="video-container">
+                    <!-- EDIT ME: Replace the src with your YouTube video's embed link. -->
+                    <!-- You can get this by going to your video on YouTube, clicking Share -> Embed, and copying the URL from the `src="..."` attribute. -->
+                    <iframe 
+                        src="https://www.youtube.com/watch?v=4-RoN4o2glc" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="alternate-bg">
+            <div class="container">
+                <h2 class="section-title">A Fresh, Powerful Interface</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <!-- EDIT ME: Replace with the path to your first screenshot. Recommended size: 1280x800px -->
+                        <img src="./assets/1_0-scr1.png" alt="Screenshot of the new multi-note and floating button interface.">
+                        <p class="caption">Capture ideas in style. Choose from multiple colors, create to-do lists, and adjust transparency to make each note perfectly fit your workflow.</p>
                     </div>
-                    <div class="feature-item">
-                        <div class="icon">📌</div>
-                        <h3>Customize Your Space</h3>
-                        <p>Drag your notes anywhere on the page. Resize them to fit your content perfectly. Your layout preferences are saved automatically for each specific page.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">✔️</div>
-                        <h3>Checklists & To-Dos</h3>
-                        <p>Quickly add checkboxes to your notes to create simple to-do lists or track tasks directly on the relevant webpage. Click to check, and it saves!</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🎨</div>
-                        <h3>Modern & Clean Interface</h3>
-                        <p>Enjoy a beautifully designed, unobtrusive note window with a modern blurred transparency that feels right at home on any webpage.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🔒</div>
-                        <h3>Private & Secure</h3>
-                        <p>All your notes, their positions, and sizes are stored securely and locally in your browser. Nothing is sent to any server.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🚀</div>
-                        <h3>Lightweight & Fast</h3>
-                        <p>PagePebble is built to be efficient, ensuring it doesn't slow down your browsing experience while providing powerful note-taking features.</p>
+                    <div class="gallery-item">
+                        <!-- EDIT ME: Replace with the path to your second screenshot. Recommended size: 1280x800px -->
+                        <img src="./assets/1_0-scr2.png" alt="Screenshot of the new All Notes dashboard with search and grouping.">
+                        <p class="caption">Manage all your notes across the web with search, filters, and easy navigation in the new dashboard.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="early-access" class="feedback-section">
+
+        <section id="features" class="features-section">
             <div class="container">
-                <h2 class="section-title">You're an Early Adopter!</h2>
-                <p>PagePebble is growing, and your voice matters immensely! As one of our early users, you have the unique opportunity to shape its future. We're passionate about building the best webpage note-taking experience, and we can't do it without you.</p>
-                <p>Encounter a quirk? Have a brilliant idea for a new feature you're dreaming of? Please share your feedback! Let's build something amazing together.</p>
-                <a href="#contact-form-modal" id="show-contact-form-feedback-link" class="cta-button" style="background-color: var(--accent-yellow); color: var(--dark-text);">Share Your Feedback & Ideas</a>
+                <h2 class="section-title">Powerful Features, Reimagined</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="icon">📝+</div>
+                        <h3>Multiple Notes, One Page</h3>
+                        <p>Your freedom, expanded. No longer limited to a single note, you can now add as many Pebbles as you need to any webpage, organizing your thoughts exactly how you see fit.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🌍</div>
+                        <h3>Cross-Website Notes</h3>
+                        <p>Create "Global Pebbles" that appear on every site you visit. Perfect for a universal scratchpad, daily to-dos, or important reminders that follow you across the web. Identified by a globe icon.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🗂️</div>
+                        <h3>The All-Notes Dashboard</h3>
+                        <p>Your new command center. Instantly search, filter, and jump to any note on any page. Grouped by domain and enhanced with smooth animations, managing your knowledge has never been this easy.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🎨</div>
+                        <h3>Stunning Material You Design</h3>
+                        <p>Experience a complete visual overhaul inspired by Material Design 3. Enjoy a cleaner interface, smoother animations, refined colors, and intuitive floating action buttons for a truly modern feel.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">⚙️</div>
+                        <h3>Deep Note Customization</h3>
+                        <p>Make each note your own. Pin it to the screen, adjust its transparency with a slider, or change its color theme. Your preferences are saved automatically for a consistent experience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">💾</div>
+                        <h3>Backup & Restore</h3>
+                        <p>Your notes are precious. Export your entire collection to a single backup file for peace of mind. Easily import your notes to a new device or restore them anytime, ensuring your data is always safe and portable.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact-us-trigger" class="contact-section"> <!-- Changed ID to match nav link -->
+        <section id="feedback">
             <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <p>Have questions, suggestions, or just want to say hi? We'd love to hear from you!</p>
-                <a href="#contact-form-modal" id="show-contact-form-contact-link" class="cta-button">Contact the PagePebble Team</a>
+                 <div class="feedback-section">
+                    <h2 class="section-title">Join the PagePebble Journey</h2>
+                    <p>PagePebble is built for and by its users. As we continue to innovate, your feedback is more valuable than ever. Have an idea for the next big feature? Found a bug? Let us know!</p>
+                    <a href="#contact-form-modal" id="show-contact-form-feedback-link" class="cta-button" style="background-color: var(--accent-yellow); color: var(--dark-text);">Share Your Feedback</a>
+                </div>
             </div>
         </section>
     </main>
@@ -505,11 +504,11 @@
     <footer>
         <div class="container">
             <p>© <span id="current-year"></span> PagePebble. All rights reserved.</p>
-            <p><a href="#privacy-policy-modal" id="show-privacy-link-footer">Privacy Policy</a></p>
+            <p><a href="#privacy-policy-modal" id="show-privacy-link-footer">Privacy Policy</a> | <a href="#contact-form-modal" id="show-contact-form-contact-link">Contact Us</a></p>
         </div>
     </footer>
 
-    <!-- Privacy Policy Modal Structure -->
+    <!-- Privacy Policy Modal Structure (Unchanged) -->
     <div id="privacy-policy-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" id="close-privacy-modal-button" aria-label="Close privacy policy">×</button>
@@ -558,7 +557,7 @@
         </div>
     </div>
 
-    <!-- Contact/Feedback Form Modal Structure -->
+    <!-- Contact/Feedback Form Modal Structure (Unchanged) -->
     <div id="contact-form-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" id="close-contact-form-modal-button" aria-label="Close contact form">×</button>
@@ -586,10 +585,11 @@
                 <div style="text-align: center; margin-top:15px;">
                     <button type="submit" class="cta-button" style="background-color: var(--primary-blue); color: var(--light-text); padding: 12px 25px;">Send Message</button>
                 </div>
-                <!-- Removed the "you will be redirected" note as AJAX handles it -->
             </form>
         </div>
     </div>
+
+    <!-- JavaScript - Unchanged from original for stability -->
     <script>
         console.log("PagePebble Website Script: Initializing...");
 
@@ -616,76 +616,47 @@
         const showPrivacyLinks = document.querySelectorAll('#show-privacy-link, #show-privacy-link-footer');
         const closePrivacyButton = document.getElementById('close-privacy-modal-button');
 
-        console.log("Privacy Modal Element:", privacyModal);
-        console.log("Show Privacy Links Found:", showPrivacyLinks.length);
-        console.log("Close Privacy Button Element:", closePrivacyButton);
-
-
         function openPrivacyModal() {
-            console.log("Attempting to open Privacy Modal...");
             if (privacyModal) {
                 privacyModal.classList.add('visible');
                 privacyModal.querySelector('.modal-content').scrollTop = 0;
-                console.log("Privacy Modal classList:", privacyModal.classList);
-            } else {
-                console.error("Privacy Modal element is null in openPrivacyModal.");
             }
         }
-
         function closePrivacyModal() {
-            console.log("Attempting to close Privacy Modal...");
             if (privacyModal) {
                 privacyModal.classList.remove('visible');
-                console.log("Privacy Modal classList after close:", privacyModal.classList);
-            } else {
-                console.error("Privacy Modal element is null in closePrivacyModal.");
             }
         }
 
         if (showPrivacyLinks.length > 0 && privacyModal) {
             showPrivacyLinks.forEach(link => {
-                console.log("Attaching click listener to privacy link:", link);
                 link.addEventListener('click', function(event) {
-                    console.log("Privacy link clicked:", event.target);
                     event.preventDefault();
                     openPrivacyModal();
-                    if (history.pushState) {
-                        history.pushState(null, null, '#privacy-policy');
-                    } else {
-                        window.location.hash = 'privacy-policy';
-                    }
+                    if (history.pushState) { history.pushState(null, null, '#privacy-policy'); } 
+                    else { window.location.hash = '#privacy-policy'; }
                 });
             });
-        } else {
-            if (showPrivacyLinks.length === 0) console.error("No 'show privacy' links found!");
-            if (!privacyModal) console.error("Privacy modal div not found!");
         }
         
         if (closePrivacyButton) {
             closePrivacyButton.addEventListener('click', () => {
-                console.log("Close privacy button clicked.");
                 closePrivacyModal();
                 if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
             });
-        } else {
-             console.error("Close privacy button not found!");
         }
 
         if (privacyModal) {
             privacyModal.addEventListener('click', function(event) { 
                 if (event.target === privacyModal) {
-                    console.log("Privacy modal overlay clicked.");
                     closePrivacyModal();
                     if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
             });
         }
         
-        // Check if URL hash targets the privacy policy on page load
         if (window.location.hash === '#privacy-policy' || window.location.hash === '#privacy-policy-modal') {
-            console.log("Privacy policy hash detected on page load.");
-            if (privacyModal) setTimeout(openPrivacyModal, 100); // Increased delay slightly
-            else console.error("Privacy modal not found for hash detection.");
+            if (privacyModal) setTimeout(openPrivacyModal, 100);
         }
 
         // --- Contact/Feedback Form Modal Logic ---
@@ -695,89 +666,56 @@
         const contactFormInModalElement = document.getElementById('contactFormInModal'); 
         const modalFormStatusElement = document.getElementById('modal-form-status'); 
 
-        console.log("Contact Form Modal Element:", contactFormModal);
-        console.log("Show Contact Form Links Found:", showContactFormLinks.length);
-        console.log("Close Contact Form Button Element:", closeContactFormButton);
-        console.log("Contact Form In Modal Element:", contactFormInModalElement);
-        console.log("Modal Form Status Element:", modalFormStatusElement);
-
-
         function openContactFormModal() {
-            console.log("Attempting to open Contact Form Modal...");
             if (contactFormModal) {
                 contactFormModal.classList.add('visible');
                 contactFormModal.querySelector('.modal-content').scrollTop = 0; 
-                console.log("Contact Form Modal classList:", contactFormModal.classList);
                 if (modalFormStatusElement) {
                     modalFormStatusElement.textContent = '';
                     modalFormStatusElement.style.color = ''; 
                 }
-            } else {
-                console.error("Contact Form Modal element is null in openContactFormModal.");
             }
         }
-
         function closeContactFormModal() {
-            console.log("Attempting to close Contact Form Modal...");
             if (contactFormModal) {
                 contactFormModal.classList.remove('visible');
-                console.log("Contact Form Modal classList after close:", contactFormModal.classList);
-            } else {
-                console.error("Contact Form Modal element is null in closeContactFormModal.");
             }
         }
 
         if (showContactFormLinks.length > 0 && contactFormModal) {
             showContactFormLinks.forEach(link => {
-                console.log("Attaching click listener to contact link:", link);
                 link.addEventListener('click', function(event) {
-                    console.log("Contact link clicked:", event.target);
                     event.preventDefault(); 
                     openContactFormModal();
-                    if (history.pushState) {
-                        history.pushState(null, null, '#contact-us'); 
-                    } else {
-                        window.location.hash = 'contact-us';
-                    }
+                    if (history.pushState) { history.pushState(null, null, '#contact-us'); } 
+                    else { window.location.hash = 'contact-us'; }
                 });
             });
-        } else {
-            if (showContactFormLinks.length === 0) console.error("No 'show contact form' links found!");
-            if (!contactFormModal) console.error("Contact form modal div not found!");
         }
 
         if (closeContactFormButton) { 
             closeContactFormButton.addEventListener('click', () => {
-                console.log("Close contact form button clicked.");
                 closeContactFormModal();
                 if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
             });
-        } else {
-            console.error("Close contact form button not found!");
         }
 
         if (contactFormModal) {
             contactFormModal.addEventListener('click', function(event) { 
                 if (event.target === contactFormModal) {
-                    console.log("Contact form modal overlay clicked.");
                     closeContactFormModal();
                     if (history.pushState) { history.pushState(null, null, window.location.pathname + window.location.search); } else { window.location.hash = '';}
                 }
             });
         }
         
-        // Check if URL hash targets a contact form modal on page load
         if (window.location.hash === '#contact-us' || window.location.hash === '#feedback' || window.location.hash === '#contact-form-modal') {
-            console.log("Contact form hash detected on page load.");
-            if (contactFormModal) setTimeout(openContactFormModal, 100); // Increased delay slightly
-            else console.error("Contact form modal not found for hash detection.");
+            if (contactFormModal) setTimeout(openContactFormModal, 100);
         }
         
         // --- AJAX for Formspree in Modal ---
         if (contactFormInModalElement && modalFormStatusElement) {
-            console.log("Attaching submit listener to contact form in modal.");
             contactFormInModalElement.addEventListener("submit", async function(event) {
-                console.log("Contact form submitted.");
                 event.preventDefault(); 
                 const form = event.target;
                 const data = new FormData(form);
@@ -798,31 +736,18 @@
                         statusElement.textContent = "Thanks for your message! We'll be in touch soon.";
                         statusElement.style.color = "green";
                         form.reset(); 
-                        setTimeout(() => { 
-                           if(contactFormModal && contactFormModal.classList.contains('visible')) { 
-                             // closeContactFormModal(); 
-                           }
-                        }, 4000);
                     } else {
                         const responseData = await response.json().catch(() => ({message: "An unexpected error occurred."})); 
-                        if (responseData.errors && responseData.errors.length > 0) {
-                            statusElement.textContent = responseData.errors.map(error => error.message || 'Unknown error').join(", ");
-                        } else {
-                            statusElement.textContent = responseData.message || "Oops! There was a problem submitting your form. Please try again.";
-                        }
+                        statusElement.textContent = responseData.errors ? responseData.errors.map(e => e.message).join(", ") : responseData.message || "Oops! There was a problem submitting your form.";
                         statusElement.style.color = "red";
                     }
                 } catch (error) {
-                    console.error("Form submission error:", error); 
-                    statusElement.textContent = "Oops! There was a network error. Please check your connection and try again.";
+                    statusElement.textContent = "Oops! There was a network error. Please try again.";
                     statusElement.style.color = "red";
                 } finally {
                      form.querySelector('button[type="submit"]').disabled = false;
                 }
             });
-        } else {
-            if(!contactFormInModalElement) console.error("Contact form element 'contactFormInModal' not found for AJAX!");
-            if(!modalFormStatusElement) console.error("Modal form status element 'modal-form-status' not found for AJAX!");
         }
 
         // Global Escape Key Listener for any open modal
@@ -830,12 +755,10 @@
             if (event.key === 'Escape') {
                 let modalClosed = false;
                 if (privacyModal && privacyModal.classList.contains('visible')) {
-                    console.log("Escape key: Closing privacy modal.");
                     closePrivacyModal();
                     modalClosed = true;
                 }
                 if (contactFormModal && contactFormModal.classList.contains('visible')) {
-                    console.log("Escape key: Closing contact form modal.");
                     closeContactFormModal();
                     modalClosed = true;
                 }
