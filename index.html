@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PagePebble V1.0 - Your Webpage Sticky Notes, Reimagined</title>
+    <title>PagePebble v1.3 - Your Webpage Sticky Notes, Reimagined</title>
+    <meta name="description" content="Capture your thoughts contextually on any website with PagePebble. Create multiple resizable sticky notes, tag lists, and global scratchpads stored securely and privately in your browser.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Basic Reset & Modern Defaults */
         :root {
-            --primary-blue: #4A729D;
-            --primary-blue-dark: #3e6084;
-            --accent-yellow: #F2C057;
-            --accent-yellow-light: #f9d88a;
-            --dark-text: #212529;
-            --light-text: #f8f9fa;
-            --bg-light: #f8f9fa;
-            --bg-medium: #e9ecef;
-            --border-radius: 12px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
+            /* Showcase Page System Colors (Sleek Modern Light Theme) */
+            --bg-light: #fcfbfa;
+            --bg-mesh-1: rgba(124, 58, 237, 0.05); /* soft violet */
+            --bg-mesh-2: rgba(13, 148, 136, 0.05); /* soft teal */
+            --bg-mesh-3: rgba(244, 63, 94, 0.03);    /* soft rose */
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(15, 23, 42, 0.06);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-purple: #7c3aed;
+            --accent-teal: #0d9488;
+            
+            /* Sticky Note Themes - Classic & 1.3 */
+            --sunset-orange-bg: #FFDEA8; --sunset-orange-text: #301F00; --sunset-orange-accent: #815600; --sunset-orange-icon: #51443A;
+            --sakura-pink-bg: #FFD8E4; --sakura-pink-text: #31111D; --sakura-pink-accent: #984061; --sakura-pink-icon: #503E45;
+            --ocean-breeze-bg: #C2E7FF; --ocean-breeze-text: #001D35; --ocean-breeze-accent: #00639B; --ocean-breeze-icon: #42474E;
+            --forest-sage-bg: #C7E6C1; --forest-sage-text: #002205; --forest-sage-accent: #1B6C30; --forest-sage-icon: #414941;
+            --royal-plum-bg: #F3DAFF; --royal-plum-text: #250040; --royal-plum-accent: #8222C8; --royal-plum-icon: #4C414D;
+            --minty-teal-bg: #A3F0E5; --minty-teal-text: #00201D; --minty-teal-accent: #006A60; --minty-teal-icon: #3F4947;
+            --lavender-dream-bg: #E9DDFF; --lavender-dream-text: #221932; --lavender-dream-accent: #654FA3; --lavender-dream-icon: #4A4458;
+            --charcoal-night-bg: #4A454E; --charcoal-night-text: #E8DEF8; --charcoal-night-accent: #D2BBFF; --charcoal-night-icon: #CAC4CF;
         }
 
         * {
@@ -31,27 +43,61 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            color: var(--dark-text);
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-light);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
         }
 
-        /* Container */
-        .container {
-            width: 90%;
-            max-width: 1100px;
+        /* Glowing Mesh Background (Subtle Light Variant) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 15% 20%, var(--bg-mesh-1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, var(--bg-mesh-2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, var(--bg-mesh-3) 0%, transparent 45%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        /* Static Subtle Noise Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuODYiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIvPjwvc3ZnPg==');
+            opacity: 0.015;
+            z-index: -2;
+        }
+
+        /* Main Container Layout */
+        .page-container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
         }
 
-        /* Header & Navigation */
+        /* Header Styles */
         header {
-            background-color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: rgba(252, 251, 250, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
+            padding: 16px 0;
         }
 
         header .container {
@@ -60,41 +106,45 @@
             align-items: center;
         }
 
-        header .logo-container img.logo {
-            height: 50px;
-            width: auto;
-            display: block;
-        }
-
-        .logo-text {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-left: 12px;
-        }
         .logo-container {
             display: flex;
             align-items: center;
             text-decoration: none;
         }
 
+        .logo-header {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 4px 8px rgba(124, 58, 237, 0.12));
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed 0%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 12px;
+        }
+
         nav ul {
             list-style: none;
             display: flex;
-        }
-
-        nav ul li {
-            margin-left: 28px;
+            align-items: center;
+            gap: 28px;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: var(--primary-blue);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
         }
+
         nav ul li a::after {
             content: '';
             position: absolute;
@@ -102,114 +152,151 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent-yellow);
+            background-color: var(--accent-purple);
             transition: width 0.3s ease;
         }
+
+        nav ul li a:hover {
+            color: var(--text-primary);
+        }
+
         nav ul li a:hover::after, nav ul li a.active::after {
             width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #6A8FB8 100%);
-            color: var(--light-text);
-            padding: 100px 20px;
+            padding: 80px 0 100px 0;
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero .logo-hero img {
-            height: 120px;
-            margin-bottom: 25px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.25));
+
+        .logo-hero img {
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(0 8px 20px rgba(124, 58, 237, 0.2));
+            animation: floatLogo 4s ease-in-out infinite;
+            margin-bottom: 24px;
+        }
+
+        .badge-v13 {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(13, 148, 136, 0.08) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.08);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            background: linear-gradient(to right, #0f172a 30%, #334155 60%, #7c3aed 85%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            max-width: 950px;
         }
 
         .hero p {
-            font-size: 1.3em;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
             max-width: 750px;
-            margin: 0 auto 35px auto;
-            opacity: 0.95;
+            margin: 0 auto 40px auto;
+            line-height: 1.65;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .cta-button {
-            display: inline-block;
-            background-color: var(--accent-yellow);
-            color: var(--dark-text);
-            padding: 15px 35px;
-            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: #ffffff;
+            padding: 16px 36px;
+            font-size: 1.05rem;
             font-weight: 600;
             text-decoration: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(109, 40, 217, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
             border: none;
             cursor: pointer;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            background-color: var(--accent-yellow-light);
+            box-shadow: 0 12px 25px rgba(109, 40, 217, 0.35);
         }
-        
+
         .cta-button.secondary {
-            background-color: transparent;
-            color: var(--light-text);
-            border: 2px solid var(--accent-yellow);
-            margin-left: 15px;
+            background: rgba(15, 23, 42, 0.04);
+            color: var(--text-primary);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
         }
+
         .cta-button.secondary:hover {
-            background-color: var(--accent-yellow);
-            color: var(--dark-text);
+            background: rgba(15, 23, 42, 0.08);
+            border-color: rgba(15, 23, 42, 0.15);
         }
 
         /* Sections General */
         section {
-            padding: 80px 0;
-        }
-        section.alternate-bg { 
-            background-color: var(--bg-medium);
+            padding: 100px 0;
+            border-top: 1px solid rgba(15, 23, 42, 0.04);
         }
 
         .section-title {
+            font-family: 'Outfit', sans-serif;
             text-align: center;
-            font-size: 2.8em;
-            color: var(--primary-blue);
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
             margin-bottom: 60px;
-            font-weight: 600;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent-yellow);
-            margin: 15px auto 0;
-            border-radius: 2px;
+            letter-spacing: -0.02em;
         }
 
-        /* Video Showcase Section */
+        .section-title span {
+            background: linear-gradient(135deg, #7c3aed 0%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Video Section */
+        .video-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
             height: 0;
             overflow: hidden;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-hover);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
+            background: var(--card-bg);
         }
         .video-container iframe {
             position: absolute;
@@ -220,370 +307,1461 @@
             border: 0;
         }
 
+        /* Responsive Grid for Playgrounds */
+        .playground-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Card Template styling */
+        .interactive-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-teal));
+            opacity: 0.8;
+        }
+        .interactive-card:hover {
+            border-color: rgba(124, 58, 237, 0.15);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-header-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-badge {
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            color: var(--accent-purple);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* Component Showcase Areas */
+        .showcase-area {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.02);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px dashed rgba(15, 23, 42, 0.08);
+            min-height: 380px;
+        }
+
+        /* ------------------- INTERACTIVE VIRTUAL NOTE ------------------- */
+        .virtual-note-wrapper {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .virtual-note {
+            --n-bg: var(--sunset-orange-bg);
+            --n-text: var(--sunset-orange-text);
+            --n-accent: var(--sunset-orange-accent);
+            --n-icon: var(--sunset-orange-icon);
+
+            width: 320px;
+            min-height: 240px;
+            background-color: var(--n-bg);
+            color: var(--n-text);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        /* Collapsed virtual note state */
+        .virtual-note.collapsed {
+            min-height: 56px !important;
+            height: 56px !important;
+        }
+        .virtual-note.collapsed .virtual-note-body,
+        .virtual-note.collapsed .virtual-note-tags-editor,
+        .virtual-note.collapsed .virtual-note-action-btn:not(#virtualCollapseBtn) {
+            display: none !important;
+        }
+        .virtual-note.collapsed .virtual-title-collapsed {
+            display: block !important;
+        }
+        .virtual-note.collapsed .virtual-title-input {
+            display: none !important;
+        }
+
+        .virtual-note-header {
+            height: 48px;
+            padding: 0 12px 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .virtual-title-area {
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .virtual-title-collapsed {
+            display: none;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--n-text);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 140px;
+            padding-left: 2px;
+            min-width: 0;
+        }
+
+        .virtual-saving-indicator {
+            font-size: 11px;
+            color: var(--n-icon);
+            opacity: 0.6;
+            margin-left: 8px;
+            font-style: italic;
+            display: none;
+            animation: pulseSaving 1.2s infinite ease-in-out;
+        }
+        .virtual-saving-indicator.visible {
+            display: block;
+        }
+
+        .virtual-note-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .virtual-note-action-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            color: var(--n-icon);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .virtual-note-action-btn:hover {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+        .virtual-note-action-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .virtual-title-input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 16px 0 16px;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--n-text);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .virtual-note-body {
+            flex-grow: 1;
+            padding: 6px 16px 12px 16px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: var(--n-text);
+            resize: none;
+            font-family: 'Inter', sans-serif;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+
+        /* Tags panel style */
+        .virtual-note-tags-editor {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 6px 16px 8px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            min-height: 38px;
+        }
+
+        .virtual-tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .virtual-tag-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--n-text);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px 2px 8px;
+            border-radius: 10px;
+            line-height: 1;
+        }
+        .virtual-tag-chip .remove-tag {
+            cursor: pointer;
+            font-size: 10px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .virtual-tag-chip .remove-tag:hover {
+            opacity: 1;
+        }
+
+        .virtual-tag-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 12px;
+            color: var(--n-text);
+            width: 70px;
+            font-family: 'Inter', sans-serif;
+        }
+        .virtual-tag-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Color selection panel below note */
+        .color-palette-sandbox {
+            margin-top: 16px;
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 320px;
+        }
+
+        .palette-row {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .row-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            width: 50px;
+        }
+
+        .color-circles {
+            display: flex;
+            gap: 8px;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+        .color-dot.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.15);
+        }
+
+        /* ------------------- INTERACTIVE NOTES LIST ------------------- */
+        .virtual-notes-list-window {
+            width: 100%;
+            max-width: 540px;
+            height: 480px;
+            background: #ffffff;
+            color: #301f00;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            border: 1px solid rgba(129, 86, 0, 0.15);
+        }
+
+        .notes-list-window-dragbar {
+            height: 40px;
+            background: #f8f3ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            cursor: grab;
+            border-bottom: 1px solid rgba(129, 86, 0, 0.08);
+            user-select: none;
+        }
+
+        .list-window-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #815600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .list-window-title svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .drag-indicator {
+            font-size: 10px;
+            color: #8f7d6e;
+            background: rgba(0,0,0,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .notes-list-window-search-wrapper {
+            padding: 12px 16px 10px 16px;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(129, 86, 0, 0.08);
+        }
+
+        .search-input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-input-box svg {
+            position: absolute;
+            left: 14px;
+            width: 18px;
+            height: 18px;
+            fill: #51443a;
+            pointer-events: none;
+        }
+
+        .virtual-search-input {
+            width: 100%;
+            padding: 10px 16px 10px 42px;
+            font-size: 14px;
+            border: 1px solid #79747e;
+            border-radius: 20px;
+            outline: none;
+            background-color: #f8f3ed;
+            color: #301f00;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .virtual-search-input:focus {
+            border-color: #815600;
+            background-color: #ffffff;
+        }
+
+        /* Tag Chip scrollable row below search */
+        .virtual-tags-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+            mask-image: linear-gradient(to right, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+        }
+        .virtual-tags-filter-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .virtual-filter-chip {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(129, 86, 0, 0.06);
+            color: #301f00;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(129, 86, 0, 0.08);
+        }
+        .virtual-filter-chip:hover {
+            background-color: rgba(129, 86, 0, 0.12);
+        }
+        .virtual-filter-chip.active {
+            background-color: #815600;
+            color: #fffbff;
+            border-color: #815600;
+        }
+
+        /* List contents view */
+        .virtual-notes-list-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 12px 16px 80px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+
+        .tree-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tree-group-header {
+            font-size: 12px;
+            font-weight: 700;
+            color: #815600;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tree-group-notes {
+            margin-left: 10px;
+            border-left: 1.5px solid rgba(129, 86, 0, 0.15);
+            padding-left: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Virtual Note Row */
+        .virtual-note-row {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+            background: #f8f3ed;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .virtual-note-row:hover {
+            background: #ffffff;
+            border-color: #815600;
+            box-shadow: 0 4px 12px rgba(129, 86, 0, 0.08);
+            transform: translateY(-1px);
+        }
+        .virtual-note-row:active {
+            transform: translateY(0);
+        }
+
+        .virtual-note-row.global-wide {
+            border-left: 4px solid #815600;
+            background-color: rgba(129, 86, 0, 0.02);
+            padding-left: 10px;
+        }
+
+        .row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .row-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #301f00;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .row-badge {
+            background: rgba(129, 86, 0, 0.08);
+            color: #815600;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(129, 86, 0, 0.12);
+        }
+
+        .row-url {
+            font-size: 11px;
+            color: #8f7d6e;
+        }
+
+        .row-body {
+            font-size: 12px;
+            color: #51443a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .row-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .row-tag-chip {
+            font-size: 9px;
+            font-weight: 600;
+            background: rgba(129, 86, 0, 0.08);
+            color: #815600;
+            padding: 1px 5px;
+            border-radius: 6px;
+        }
+
+        /* Floating Capsule Navbar */
+        .virtual-notes-list-navbar {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 251, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(129, 86, 0, 0.15);
+            width: max-content;
+            transition: all 0.2s ease;
+        }
+        .virtual-notes-list-navbar:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 10px 25px rgba(129, 86, 0, 0.15);
+            border-color: rgba(129, 86, 0, 0.3);
+        }
+
+        .navbar-btn {
+            background: none;
+            border: none;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #815600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .navbar-btn:hover {
+            background: rgba(129, 86, 0, 0.08);
+        }
+        .navbar-btn.danger {
+            color: #B3261E;
+        }
+        .navbar-btn.danger:hover {
+            background: rgba(255, 0, 0, 0.08);
+        }
+        .navbar-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .virtual-empty-message {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: #8f7d6e;
+            text-align: center;
+            display: none;
+            width: 80%;
+        }
+
+        /* ------------------- TOAST BANNER ------------------- */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            color: #f8fafc;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+            max-width: 90%;
+            font-weight: 500;
+        }
+        .toast-container.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast-icon {
+            color: #2dd4bf;
+            display: flex;
+            align-items: center;
+        }
+
         /* Gallery Section */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
-            align-items: start;
         }
         .gallery-item {
-            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            border-color: rgba(124, 58, 237, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
         }
         .gallery-item img {
             width: 100%;
             height: auto;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #ddd;
+            border-radius: 16px;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            margin-bottom: 20px;
         }
-        .gallery-item img:hover {
-            transform: scale(1.03);
-            box-shadow: var(--shadow-hover);
+        .gallery-item h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
         .gallery-item .caption {
-            margin-top: 20px;
-            font-size: 1.05em;
-            color: #555;
-            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         /* Features Section */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
         .feature-item {
-            background-color: #fff;
-            padding: 35px 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 36px 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            text-align: left;
         }
         .feature-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            border-color: rgba(124, 58, 237, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
         }
         .feature-item .icon {
-            font-size: 2.5em;
+            font-size: 2.2rem;
             line-height: 1;
             margin-bottom: 20px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(124, 58, 237, 0.06);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            color: var(--accent-purple);
         }
         .feature-item h3 {
-            font-size: 1.5em;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
-        /* Feedback Section */
-        .feedback-section {
-            background: linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 100%);
-            color: var(--light-text);
-            text-align: center;
-            border-radius: var(--border-radius);
+        /* Feedback CTA banner in home */
+        .feedback-cta-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(124, 58, 237, 0.03) 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
             padding: 60px 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.04);
+            max-width: 900px;
             margin: 0 auto;
         }
-        .feedback-section .section-title {
-            color: var(--light-text);
+        .feedback-cta-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
         }
-        .feedback-section .section-title::after {
-            background-color: var(--accent-yellow);
-        }
-        .feedback-section p {
-            font-size: 1.1em;
+        .feedback-cta-card p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto 30px auto;
+            line-height: 1.6;
         }
 
-        /* Footer */
+        /* Modals & Overlays */
+        .modal-overlay {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+            padding: 20px;
+            opacity: 0; 
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s; 
+        }
+
+        .modal-overlay.visible {
+            opacity: 1; 
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0s linear 0s; 
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
+            max-width: 700px; 
+            width: 100%;
+            max-height: 85vh; 
+            overflow-y: auto; 
+            position: relative;
+            transform: translateY(30px) scale(0.95); 
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        }
+
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0) scale(1); 
+            opacity: 1;
+        }
+
+        .modal-content h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #0f172a, #334155, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            color: var(--accent-purple);
+            margin-top: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .modal-content p, .modal-content ul {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .modal-content ul { 
+            padding-left: 20px; 
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-content input[type="text"], 
+        .modal-content input[type="email"], 
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .modal-content input[type="text"]:focus, 
+        .modal-content input[type="email"]:focus, 
+        .modal-content textarea:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .modal-content textarea { 
+            resize: vertical; 
+            min-height: 120px; 
+        }
+
+        .close-modal {
+            position: absolute; 
+            top: 20px; 
+            right: 24px; 
+            font-size: 2.2rem; 
+            color: var(--text-muted);
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            line-height: 1; 
+            padding: 5px;
+            transition: color 0.2s ease;
+        }
+
+        .close-modal:hover { 
+            color: var(--text-primary); 
+        }
+
+        /* Footer styling */
         footer {
-            background-color: #343a40;
-            color: #adb5bd;
+            background: #f8f9fa;
+            color: var(--text-secondary);
             text-align: center;
             padding: 40px 0;
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
         }
+
         footer p {
-            margin: 5px 0;
-            font-size: 0.9em;
+            margin: 6px 0;
+            font-size: 0.9rem;
         }
+
         footer a {
-            color: var(--accent-yellow);
+            color: var(--accent-purple);
             text-decoration: none;
+            transition: color 0.2s ease;
         }
+
         footer a:hover {
+            color: var(--accent-teal);
             text-decoration: underline;
         }
 
-        /* --- MODAL STYLES (Unchanged from original for stability) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.65); display: flex;
-            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0s linear 0.3s; 
+        /* KEYFRAMES ANIMATIONS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .modal-overlay.visible {
-            opacity: 1; visibility: visible;
-            transition: opacity 0.3s ease, visibility 0s linear 0s; 
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
         }
-        .modal-content {
-            background-color: #fff; padding: 30px 35px; border-radius: var(--border-radius);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.25); max-width: 700px; width: 95%;
-            max-height: 85vh; overflow-y: auto; position: relative;
-            transform: translateY(20px) scale(0.98); opacity: 0;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0.05s, opacity 0.3s ease 0.05s;
+        @keyframes pulseSaving {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
-        .modal-overlay.visible .modal-content {
-            transform: translateY(0) scale(1); opacity: 1;
-        }
-        .modal-content h2 { color: var(--primary-blue); margin-bottom: 20px; text-align: center; font-size: 1.8em; }
-        .modal-content h3 { color: var(--primary-blue); margin-top: 20px; margin-bottom: 10px; font-size: 1.2em; }
-        .modal-content p, .modal-content ul { margin-bottom: 15px; line-height: 1.8; font-size: 0.95em; }
-        .modal-content ul { padding-left: 20px; }
-        .modal-content label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9em; }
-        .modal-content input[type="text"], .modal-content input[type="email"], .modal-content textarea {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: calc(var(--border-radius) - 4px);
-            font-size: 0.95em; margin-bottom: 10px;
-        }
-        .modal-content textarea { resize: vertical; min-height: 100px; }
-        .close-modal {
-            position: absolute; top: 10px; right: 15px; font-size: 2.2em; color: #aaa;
-            background: none; border: none; cursor: pointer; line-height: 1; padding: 5px;
-            transition: color 0.2s ease;
-        }
-        .close-modal:hover { color: var(--dark-text); }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .gallery-grid { grid-template-columns: 1fr; gap: 50px; }
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .playground-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
         }
         @media (max-width: 768px) {
-            header .container { flex-direction: column; gap: 15px; }
-            .hero h1 { font-size: 2.8em; }
-            .hero p { font-size: 1.15em; }
-            .section-title { font-size: 2.2em; }
-            .features-grid { grid-template-columns: 1fr; }
-            .hero .cta-button { margin-bottom: 10px; }
-            .hero .cta-button.secondary { margin-left: 0; }
-        }
-        @media (max-width: 480px) {
-            nav ul { flex-wrap: wrap; justify-content: center; padding-left: 0; }
-            nav ul li { margin: 5px 12px; }
-            .hero h1 { font-size: 2.2em; }
-            .hero p { font-size: 1em; }
-            .cta-button { padding: 12px 25px; font-size: 1em; width: 100%; max-width: 300px; }
-            .modal-content { padding: 25px 20px; }
-            .modal-content h2 { font-size: 1.5em; }
+            header .container {
+                flex-direction: column;
+                gap: 16px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+            .hero {
+                padding: 60px 0 80px 0;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .cta-button {
+                padding: 14px 28px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 320px;
+            }
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .hero-ctas .cta-button.secondary {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+            .modal-content {
+                padding: 24px;
+            }
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Sticky Navigation Header -->
     <header>
-        <div class="container">
-            <a href="#" class="logo-container">
-                <img src="./assets/logo.png" alt="PagePebble Logo" class="logo">
-                <span class="logo-text">PagePebble</span>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#whats-new">What's New</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#show-contact-form-nav-link" id="show-contact-form-nav-link">Contact</a></li>
-                    <li><a href="#show-privacy-link" id="show-privacy-link">Privacy</a></li>
-                </ul>
-            </nav>
+        <div class="page-container">
+            <div class="container">
+                <a href="#" class="logo-container">
+                    <img src="./assets/logo.png" alt="PagePebble Logo" class="logo-header">
+                    <span class="logo-text">PagePebble</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#demo">Interactive Demo</a></li>
+                        <li><a href="#whats-new">Video Walkthrough</a></li>
+                        <li><a href="#show-contact-form-nav-link" id="show-contact-form-nav-link">Contact</a></li>
+                        <li><a href="#show-privacy-link" id="show-privacy-link">Privacy</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="logo-hero">
-                <img src="./assets/logo.png" alt="PagePebble Logo">
-            </div>
-            <h1>Your Web, Your Notebook. Redesigned.</h1>
-            <p>The sticky note extension you love is now supercharged. Create multiple notes per page, access notes across websites, and manage everything in a powerful new dashboard. It's never been easier to capture, organize, and recall your thoughts online.</p>
-            <div>
-                <!-- EDIT ME: Replace with your actual Chrome Web Store link -->
-                <a href="https://chromewebstore.google.com/detail/pagepebble-sticky-notes-f/ndmfjgkdalopmkladlbabnnnmlolndom" class="cta-button" target="_blank" rel="noopener noreferrer">Add to Chrome - It's Free</a>
-                <a href="#whats-new" class="cta-button secondary">See What's New</a>
-            </div>
-        </section>
-
-        <section id="whats-new">
-            <div class="container">
-                <h2 class="section-title">Introducing PagePebble V1.0</h2>
-                <div class="video-container">
-                    <!-- EDIT ME: Replace the src with your YouTube video's embed link. -->
-                    <!-- You can get this by going to your video on YouTube, clicking Share -> Embed, and copying the URL from the `src="..."` attribute. -->
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/4-RoN4o2glc?si=P2YnsM9QtHLYmvaW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="page-container">
+        <!-- Hero Section -->
+        <main>
+            <section class="hero">
+                <div class="logo-hero">
+                    <img src="./assets/logo.png" alt="PagePebble Logo">
                 </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="alternate-bg">
-            <div class="container">
-                <h2 class="section-title">A Fresh, Powerful Interface</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <!-- EDIT ME: Replace with the path to your first screenshot. Recommended size: 1280x800px -->
-                        <img src="./assets/1_0-scr1.png" alt="Screenshot of the new multi-note and floating button interface.">
-                        <p class="caption">Capture ideas in style. Choose from multiple colors, create to-do lists, and adjust transparency to make each note perfectly fit your workflow.</p>
-                    </div>
-                    <div class="gallery-item">
-                        <!-- EDIT ME: Replace with the path to your second screenshot. Recommended size: 1280x800px -->
-                        <img src="./assets/1_0-scr2.png" alt="Screenshot of the new All Notes dashboard with search and grouping.">
-                        <p class="caption">Manage all your notes across the web with search, filters, and easy navigation in the new dashboard.</p>
-                    </div>
+                <div class="badge-v13">v1.3 Release</div>
+                <h1>Your Web, Your Notebook.<br>Contextual note-taking, reimagined.</h1>
+                <p>The sticky note extension you love is now supercharged. Create multiple notes per page, access global pebbles across websites, tag notes for quick organization, and manage everything in a redesigned tree-structure dashboard. Secure, private, and fully local.</p>
+                <div class="hero-ctas">
+                    <a href="https://chromewebstore.google.com/detail/pagepebble-sticky-notes-f/ndmfjgkdalopmkladlbabnnnmlolndom" class="cta-button" target="_blank" rel="noopener noreferrer">Add to Chrome - It's Free</a>
+                    <a href="#demo" class="cta-button secondary">Try Interactive Demo</a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-
-        <section id="features" class="features-section">
-            <div class="container">
-                <h2 class="section-title">Powerful Features, Reimagined</h2>
+            <!-- 1. Features Section -->
+            <section id="features">
+                <h2 class="section-title">Powerful Features, <span>Reimagined</span></h2>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <div class="icon">📝+</div>
+                        <div class="icon">📝</div>
                         <h3>Multiple Notes, One Page</h3>
-                        <p>Your freedom, expanded. No longer limited to a single note, you can now add as many Pebbles as you need to any webpage, organizing your thoughts exactly how you see fit.</p>
+                        <p>No longer limited to a single note. Add as many Pebbles as you need to any webpage and organize your thoughts exactly how you see fit, without cluttering your browser window.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon">🌍</div>
                         <h3>Cross-Website Notes</h3>
-                        <p>Create "Global Pebbles" that appear on every site you visit. Perfect for a universal scratchpad, daily to-dos, or important reminders that follow you across the web. Identified by a globe icon.</p>
+                        <p>Create "Global Pebbles" that appear across every page you visit. Perfect for a universal scratchpad, list of bookmarks, or running code snippets. Marked by a globe icon.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon">🗂️</div>
-                        <h3>The All-Notes Dashboard</h3>
-                        <p>Your new command center. Instantly search, filter, and jump to any note on any page. Grouped by domain and enhanced with smooth animations, managing your knowledge has never been this easy.</p>
+                        <h3>Redesigned notes list</h3>
+                        <p>Our dashboard popup is now expanded to a spacious 640px layout. Search list contents, filter by custom tags, and redirect instantly to the host page in a single click.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon">🎨</div>
-                        <h3>Stunning Material You Design</h3>
-                        <p>Experience a complete visual overhaul inspired by Material Design 3. Enjoy a cleaner interface, smoother animations, refined colors, and intuitive floating action buttons for a truly modern feel.</p>
+                        <h3>Stunning Theme Palettes</h3>
+                        <p>Personalize notes with 8 tailored colors. Features four classic templates and four brand-new themes (Sakura Pink, Ocean Breeze, Forest Sage, and Royal Plum) with dark-theme text contrast optimization.</p>
                     </div>
                     <div class="feature-item">
-                        <div class="icon">⚙️</div>
-                        <h3>Deep Note Customization</h3>
-                        <p>Make each note your own. Pin it to the screen, adjust its transparency with a slider, or change its color theme. Your preferences are saved automatically for a consistent experience.</p>
+                        <div class="icon">🛡️</div>
+                        <h3>Private & Local Storage</h3>
+                        <p>Your notes are fully secure and private. All data is saved inside your browser profile's local storage and is never uploaded to external servers.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon">💾</div>
                         <h3>Backup & Restore</h3>
-                        <p>Your notes are precious. Export your entire collection to a single backup file for peace of mind. Easily import your notes to a new device or restore them anytime, ensuring your data is always safe and portable.</p>
+                        <p>Easily protect your notes database. Export your collections to a portable JSON backup file and restore or import them on any machine in seconds.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="feedback">
-            <div class="container">
-                 <div class="feedback-section">
-                    <h2 class="section-title">Join the PagePebble Journey</h2>
-                    <p>PagePebble is built for and by its users. As we continue to innovate, your feedback is more valuable than ever. Have an idea for the next big feature? Found a bug? Let us know!</p>
-                    <a href="#contact-form-modal" id="show-contact-form-feedback-link" class="cta-button" style="background-color: var(--accent-yellow); color: var(--dark-text);">Share Your Feedback</a>
+            <!-- Screenshot Gallery Showcase (Visual Details) -->
+            <section id="gallery" style="border-top: none; padding-top: 0; padding-bottom: 100px;">
+                <h2 class="section-title">A Fresh, <span>Powerful Interface</span></h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="./assets/1_3-scr2.png" alt="Screenshot showing sticky note themes and checklists.">
+                        <h3>Customize Sticky Notes Anywhere</h3>
+                        <p class="caption">Choose from 8 beautiful themes, build functional checklist structures, set adjustable background transparencies, and place digital notes contextually pinned directly on the screen.</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="./assets/1_3-scr1.png" alt="Screenshot showing tree-structured dashboard view.">
+                        <h3>All Your Notes in One Place</h3>
+                        <p class="caption">Manage all your captured ideas across the web. Tree-grouped by domain, filter notes instantly by custom tags, search body text, and export your entire workspace locally.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
+            <!-- 2. Interactive Demo Playground Section -->
+            <section id="demo">
+                <h2 class="section-title">Live <span>Interactive Playground</span></h2>
+                <div class="playground-grid">
+                    
+                    <!-- LEFT CARD: Interactive Sticky Note Widget -->
+                    <div class="interactive-card">
+                        <div class="card-header-label">
+                            <h2 class="card-title">Virtual Sticky Note</h2>
+                            <span class="card-badge">Interactive Widget</span>
+                        </div>
+                        <p class="card-description">Experience the custom tags panel built directly within note templates, alongside four classic and four new themes. Toggle collapse to view title truncation.</p>
+                        
+                        <div class="showcase-area">
+                            <div class="virtual-note-wrapper">
+                                <!-- Note Object -->
+                                <div class="virtual-note" id="virtualNote">
+                                    <div class="virtual-note-header">
+                                        <div class="virtual-title-area">
+                                            <span class="virtual-title-collapsed" id="virtualTitleCollapsed">Idea Scrapbook</span>
+                                            <div class="virtual-saving-indicator" id="virtualSaving">Saving...</div>
+                                        </div>
+                                        <div class="virtual-note-controls">
+                                            <button class="virtual-note-action-btn" id="virtualCollapseBtn" title="Collapse Note">
+                                                <!-- unfold_less icon -->
+                                                <svg viewBox="0 -960 960 960"><path d="M356-173.85 313.85-216 480-382.15 646.15-216 604-173.85l-124-124-124 124Zm124-404L313.85-744 356-786.15l124 124 124-124L646.15-744 480-577.85Z"/></svg>
+                                            </button>
+                                            <button class="virtual-note-action-btn" id="virtualChecklistBtn" title="Checklist (Demo)" style="opacity: 0.5; cursor: not-allowed;">
+                                                <svg viewBox="0 -960 960 960"><path d="M227.77-221.92 100-349.69l41.77-41.77 85 85 170-170 41.77 42.77-210.77 211.77Zm0-304.62L100-654.31l41.77-41.77 85 85 170-170 41.77 42.77-210.77 211.77Zm292.61 228.85v-60h340v60h-340Zm0-304.62v-60h340v60h-340Z"/></svg>
+                                            </button>
+                                            <button class="virtual-note-action-btn" title="Pin Note" style="opacity: 0.5; cursor: not-allowed;">
+                                                <svg viewBox="0 -960 960 960"><path d="M620-471.54 691.54-400v60H510v220l-30 30-30-30v-220H268.46v-60L340-471.54V-760h-40v-60h360v60h-40v288.46ZM354-400h252l-46-46v-314H400v314l-46 46Zm126 0Z"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Title Box -->
+                                    <input type="text" class="virtual-title-input" id="virtualTitleInput" value="Idea Scrapbook" placeholder="Note Title" readonly onclick="showToast('Title editing is available inside the PagePebble extension!')">
+                                    
+                                    <!-- Body Box -->
+                                    <textarea class="virtual-note-body" id="virtualNoteBody" placeholder="Click here to type... Try changing themes or tag chips below!" readonly onclick="showToast('Body editing is available inside the PagePebble extension!')">v1.3 is out! Take notes directly scoped to webpages, choose between 8 themes, add checklists, and tag notes for easy retrieval.</textarea>
+                                    
+                                    <!-- Tags Panel -->
+                                    <div class="virtual-note-tags-editor">
+                                        <div class="virtual-tags-list" id="virtualTagsList">
+                                            <span class="virtual-tag-chip" data-tag="v1.3">v1.3</span>
+                                            <span class="virtual-tag-chip" data-tag="feature">feature</span>
+                                        </div>
+                                        <input type="text" class="virtual-tag-input" id="virtualTagInput" placeholder="+ Tagging Locked" maxlength="20" readonly onclick="showToast('Tagging is fully functional inside the PagePebble extension!')">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Interactive controls for virtual note -->
+                        <div class="color-palette-sandbox">
+                            <div class="palette-row">
+                                <span class="row-label">Classic</span>
+                                <div class="color-circles">
+                                    <div class="color-dot active" style="background:#FFDEA8;" onclick="changeVirtualTheme('sunset-orange', this)"></div>
+                                    <div class="color-dot" style="background:#A3F0E5;" onclick="changeVirtualTheme('minty-teal', this)"></div>
+                                    <div class="color-dot" style="background:#E9DDFF;" onclick="changeVirtualTheme('lavender-dream', this)"></div>
+                                    <div class="color-dot" style="background:#4A454E;" onclick="changeVirtualTheme('charcoal-night', this)"></div>
+                                </div>
+                            </div>
+                            <div class="palette-row">
+                                <span class="row-label" style="color:var(--accent-teal);">New v1.3</span>
+                                <div class="color-circles">
+                                    <div class="color-dot" style="background:#FFD8E4;" onclick="changeVirtualTheme('sakura-pink', this)"></div>
+                                    <div class="color-dot" style="background:#C2E7FF;" onclick="changeVirtualTheme('ocean-breeze', this)"></div>
+                                    <div class="color-dot" style="background:#C7E6C1;" onclick="changeVirtualTheme('forest-sage', this)"></div>
+                                    <div class="color-dot" style="background:#F3DAFF;" onclick="changeVirtualTheme('royal-plum', this)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT CARD: Interactive Notes List Redesign Mockup -->
+                    <div class="interactive-card">
+                        <div class="card-header-label">
+                            <h2 class="card-title">Redesigned Notes List</h2>
+                            <span class="card-badge">Dashboard Preview</span>
+                        </div>
+                        <p class="card-description">The popup has been expanded to a robust 640px layout. Use the interactive filter tags below to simulate dashboard organization and row navigation.</p>
+                        
+                        <div class="showcase-area">
+                            <!-- 640px Window Mockup -->
+                            <div class="virtual-notes-list-window">
+                                <!-- Grab bar -->
+                                <div class="notes-list-window-dragbar">
+                                    <span class="list-window-title">
+                                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0-2-.9-2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>
+                                        PagePebble Notes List
+                                    </span>
+                                    <span class="drag-indicator">Popup Window</span>
+                                </div>
+                                
+                                <!-- Search and Filter Chips -->
+                                <div class="notes-list-window-search-wrapper">
+                                    <div class="search-input-box">
+                                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                                        <input type="text" class="virtual-search-input" id="searchBar" placeholder="Search is Extension-only. Click tags below to test filter!" readonly onclick="showToast('Extension-only feature: Search instantly queries note body text and tags!')">
+                                    </div>
+                                    
+                                    <!-- Filter Chip Row -->
+                                    <div class="virtual-tags-filter-row">
+                                        <div class="virtual-filter-chip active">All Notes</div>
+                                        <div class="virtual-filter-chip">#work</div>
+                                        <div class="virtual-filter-chip">#ideas</div>
+                                        <div class="virtual-filter-chip">#design</div>
+                                        <div class="virtual-filter-chip">#personal</div>
+                                        <div class="virtual-filter-chip">#v1.3</div>
+                                    </div>
+                                </div>
+
+                                <!-- Notes Body Content -->
+                                <div class="virtual-notes-list-body" id="virtualNotesContainer">
+                                    <!-- Group 1: github.com -->
+                                    <div class="tree-group" data-domain="github.com">
+                                        <div class="tree-group-header">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                                            github.com
+                                        </div>
+                                        <div class="tree-group-notes">
+                                            <div class="virtual-note-row" data-tags="work,v1.3" data-title="Project Roadmap" data-content="Review version 1.3 scope and verify Shadow DOM migration." data-domain="github.com" onclick="triggerRowRedirection('https://github.com/PagePebble/project', 'Project Roadmap')">
+                                                <div class="row-top">
+                                                    <span class="row-title">Project Roadmap</span>
+                                                    <span class="row-url">github.com</span>
+                                                </div>
+                                                <div class="row-body">Review version 1.3 scope and verify Shadow DOM migration.</div>
+                                                <div class="row-tags">
+                                                    <span class="row-tag-chip">work</span>
+                                                    <span class="row-tag-chip">v1.3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Group 2: figma.com -->
+                                    <div class="tree-group" data-domain="figma.com">
+                                        <div class="tree-group-header">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                            figma.com
+                                        </div>
+                                        <div class="tree-group-notes">
+                                            <div class="virtual-note-row" data-tags="design,ideas" data-title="Sakura Design Ideas" data-content="Try out Sakura Pink color palette for sticky note UI widgets." data-domain="figma.com" onclick="triggerRowRedirection('https://figma.com/file/pagepebble-design', 'Sakura Design Ideas')">
+                                                <div class="row-top">
+                                                    <span class="row-title">Sakura Design Ideas</span>
+                                                    <span class="row-url">figma.com</span>
+                                                </div>
+                                                <div class="row-body">Try out Sakura Pink color palette for sticky note UI widgets.</div>
+                                                <div class="row-tags">
+                                                    <span class="row-tag-chip">design</span>
+                                                    <span class="row-tag-chip">ideas</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Group 3: docs.google.com -->
+                                    <div class="tree-group" data-domain="docs.google.com">
+                                        <div class="tree-group-header">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0-2-.9-2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                                            docs.google.com
+                                        </div>
+                                        <div class="tree-group-notes">
+                                            <div class="virtual-note-row global-wide" data-tags="personal" data-title="Weekly Grocery Checklist" data-content="Milk, Apples, and Forest Sage herbs." data-domain="docs.google.com" onclick="triggerRowRedirection('https://docs.google.com/document/grocery', 'Weekly Grocery Checklist')">
+                                                <div class="row-top">
+                                                    <span class="row-title">Weekly Grocery Checklist <span class="row-badge">Website</span></span>
+                                                    <span class="row-url">docs.google.com</span>
+                                                </div>
+                                                <div class="row-body">Milk, Apples, and Forest Sage herbs.</div>
+                                                <div class="row-tags">
+                                                    <span class="row-tag-chip">personal</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Group 4: css-tricks.com -->
+                                    <div class="tree-group" data-domain="css-tricks.com">
+                                        <div class="tree-group-header">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.5 14H13v-2.5h-2V16H7.5v-8h3v2.5h2V8h3v8z"/></svg>
+                                            css-tricks.com
+                                        </div>
+                                        <div class="tree-group-notes">
+                                            <div class="virtual-note-row" data-tags="ideas" data-title="CSS Styling Tricks" data-content="Use autofill overrides for note inputs and defensive resets." data-domain="css-tricks.com" onclick="triggerRowRedirection('https://css-tricks.com/almanac/selectors/a/autofill/', 'CSS Styling Tricks')">
+                                                <div class="row-top">
+                                                    <span class="row-title">CSS Styling Tricks</span>
+                                                    <span class="row-url">css-tricks.com</span>
+                                                </div>
+                                                <div class="row-body">Use autofill overrides for note inputs and defensive resets.</div>
+                                                <div class="row-tags">
+                                                    <span class="row-tag-chip">ideas</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Empty search state -->
+                                <div class="virtual-empty-message" id="emptyMessage">No notes match your filters.</div>
+
+                                <!-- Bottom Floating Capsule Navbar -->
+                                <div class="virtual-notes-list-navbar">
+                                    <button class="navbar-btn" onclick="triggerNavbarAction('Import')">
+                                        <svg viewBox="0 -960 960 960"><path d="M160-80v-80h640v80H160Zm200-160v-280H200l280-360 280 360H600v280H360Z"/></svg>
+                                        Import
+                                    </button>
+                                    <button class="navbar-btn" onclick="triggerNavbarAction('Export')">
+                                        <svg viewBox="0 -960 960 960"><path d="M160-80v-80h640v80H160Zm320-160L200-600h160v-280h240v280h160L480-240Z"/></svg>
+                                        Export
+                                    </button>
+                                    <span style="width: 1px; height: 16px; background: rgba(129, 86, 0, 0.2); align-self: center;"></span>
+                                    <button class="navbar-btn danger" onclick="triggerNavbarAction('Delete All')">
+                                        <svg viewBox="0 -960 960 960"><path d="M292.31-140q-29.92 0-51.12-21.19Q220-182.39 220-212.31V-720h-40v-60h180v-35.38h240V-780h180v60h-40v507.69Q740-182 719-161q-21 21-51.31 21H292.31ZM680-720H280v507.69q0 5.39 3.46 8.85t8.85 3.46h375.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-720Z"/></svg>
+                                        Delete All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- End Playground Grid -->
+            </section>
+
+            <!-- 3. Video Section -->
+            <section id="whats-new">
+                <h2 class="section-title">Video <span>Walkthrough</span></h2>
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/4-RoN4o2glc?si=P2YnsM9QtHLYmvaW" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section id="feedback">
+                <div class="feedback-cta-card">
+                    <h2>Join the PagePebble Journey</h2>
+                    <p>PagePebble is built for and by its users. As we continue to innovate and shape future updates, your feedback is extremely valuable. Have a suggestion, found a bug, or want to share your thoughts?</p>
+                    <a href="#contact-form-modal" id="show-contact-form-feedback-link" class="cta-button">Share Your Feedback</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="page-container">
             <p>© <span id="current-year"></span> PagePebble. All rights reserved.</p>
             <p><a href="#privacy-policy-modal" id="show-privacy-link-footer">Privacy Policy</a> | <a href="#contact-form-modal" id="show-contact-form-contact-link">Contact Us</a></p>
         </div>
     </footer>
 
-    <!-- Privacy Policy Modal Structure (Unchanged) -->
+    <!-- Privacy Policy Modal -->
     <div id="privacy-policy-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" id="close-privacy-modal-button" aria-label="Close privacy policy">×</button>
             <h2>Privacy Policy for PagePebble</h2>
             <p><strong>Effective Date:</strong> <span id="effective-date"></span></p>
             <p>PagePebble ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how PagePebble handles your information when you use our Chrome extension.</p>
+            
             <h3>Information We Collect & Store</h3>
             <p>PagePebble is designed with your privacy as a priority. The extension stores the following information solely on your local computer using Chrome's local storage API (<code>chrome.storage.local</code>):</p>
             <ul>
-                <li><strong>Note Content:</strong> The text and checkbox data you type into your PagePebble notes.</li>
-                <li><strong>Note Position:</strong> The top and left coordinates defining where you place your note window on a specific webpage.</li>
-                <li><strong>Note Size:</strong> The width and height dimensions you set for your note window on a specific webpage.</li>
+                <li><strong>Note Content:</strong> The text and checklist data you type into your PagePebble notes.</li>
+                <li><strong>Note Position & Size:</strong> Coordinates and dimensions defining where and how you place your notes on webpages.</li>
+                <li><strong>Note Theme & Transparency:</strong> Your selected background color and opacity properties.</li>
+                <li><strong>Tags:</strong> Customized tag labels applied to organize individual notes.</li>
             </ul>
-            <p>This information is always associated with the specific URL of the webpage for which the note was created.</p>
-            <h3>How We Use Your Information</h3>
-            <p>The information collected and stored locally by PagePebble is used exclusively for the following purposes:</p>
-            <ul>
-                <li>To display your notes on the web pages you have created them for when you revisit those pages.</li>
-                <li>To remember and restore the last known position and size of your note windows for each specific webpage, ensuring a consistent user experience.</li>
-                <li>To manage the checked/unchecked state of checkboxes within your notes.</li>
-            </ul>
+            <p>This information is stored strictly locally and is associated with the URL of the webpage where it was created.</p>
+
             <h3>Data Storage, Security, and Transmission</h3>
-            <p><strong>All data created and managed by PagePebble is stored locally within your web browser's storage on your device. This data is NOT transmitted to, or stored on, any external servers. We do not have access to your notes or any of the data PagePebble stores.</strong></p>
-            <p>The security of your locally stored data depends on the security of your computer and your Chrome browser profile.</p>
+            <p><strong>All data created and managed by PagePebble is stored locally within your web browser. This data is NEVER transmitted to, or stored on, any external servers. We do not have access to your notes, your browsing history, or any of the data PagePebble handles.</strong></p>
+            <p>The security of your locally stored data depends entirely on the security of your computer profile and browser environment.</p>
+
             <h3>Your Control Over Your Data</h3>
-            <p>You have full control over the data PagePebble stores:</p>
+            <p>You have full control over your stored notes:</p>
             <ul>
-                <li>You can edit or delete the content of any note at any time.</li>
-                <li>Deleting all content from a note and saving it effectively removes the note for that specific page (it will no longer automatically reappear).</li>
-                <li>Using the "Delete Note" (trash icon) button within the PagePebble window will remove the note content, its position, and size data for that specific URL from local storage.</li>
-                <li>Uninstalling the PagePebble Chrome extension will typically result in the removal of all data that PagePebble has stored locally in your browser.</li>
+                <li>You can edit, delete, or wipe notes at any time using the trash icon inside the note templates.</li>
+                <li>You can clear all notes globally or export your note database to a portable JSON backup file.</li>
+                <li>Uninstalling the PagePebble Chrome extension removes all local note storage data from your profile.</li>
             </ul>
+
             <h3>Permissions</h3>
-            <p>PagePebble requires the following Chrome permissions to function:</p>
+            <p>PagePebble requires the following permissions to operate:</p>
             <ul>
-                <li><strong>storage:</strong> To save your notes, positions, and sizes locally.</li>
-                <li><strong>activeTab & scripting:</strong> To display the note interface on the webpages you visit and to enable interaction when you click the extension icon. Our content script also runs on pages (as defined by <code><all_urls></code>) to automatically show your notes.</li>
+                <li><strong>storage:</strong> To save note content, coordinates, themes, and configuration parameters locally.</li>
+                <li><strong>activeTab & scripting:</strong> To inject the note editor user interface onto pages you interact with.</li>
             </ul>
-            <p>We only request permissions essential for the core functionality of the extension.</p>
-            <h3>Third-Party Services</h3>
-            <p>PagePebble does not integrate with any third-party services for data collection or tracking within the extension itself. The "Contact Us" and "Feedback" links on our promotional webpage may direct you to third-party services like Formspree for form submissions, which have their own privacy policies.</p>
-            <h3>Changes to This Privacy Policy</h3>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this promotional webpage. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
-            <h3>Contact Us</h3>
-            <p>If you have any questions about this Privacy Policy, please contact us via the form provided on our website.</p>
+            <p>We only request permissions that are absolutely essential for the extension's core features.</p>
         </div>
     </div>
 
-    <!-- Contact/Feedback Form Modal Structure (Unchanged) -->
+    <!-- Contact/Feedback Form Modal -->
     <div id="contact-form-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" id="close-contact-form-modal-button" aria-label="Close contact form">×</button>
             <h2>Share Feedback or Contact Us</h2>
-            <p style="text-align: center; margin-bottom: 20px;">We'd love to hear from you!</p>
+            <p style="text-align: center; margin-bottom: 24px; color: var(--text-secondary);">We would love to hear from you!</p>
             <form id="contactFormInModal" action="https://formspree.io/f/xovdbggz" method="POST" style="text-align: left;">
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 20px;">
                     <label for="modal-name">Name (Optional):</label>
-                    <input type="text" id="modal-name" name="name">
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-email">Email (For a reply):</label>
-                    <input type="email" id="modal-email" name="email" required>
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <label for="modal-subject">Subject:</label>
-                    <input type="text" id="modal-subject" name="subject" required>
+                    <input type="text" id="modal-name" name="name" placeholder="Your name">
                 </div>
                 <div style="margin-bottom: 20px;">
+                    <label for="modal-email">Email (For a reply):</label>
+                    <input type="email" id="modal-email" name="email" required placeholder="name@example.com">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="modal-subject">Subject:</label>
+                    <input type="text" id="modal-subject" name="subject" required placeholder="How can we help?">
+                </div>
+                <div style="margin-bottom: 24px;">
                     <label for="modal-message">Message/Feedback:</label>
-                    <textarea id="modal-message" name="message" rows="5" required></textarea>
+                    <textarea id="modal-message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
                 </div>
                 <input type="hidden" name="_gotcha" style="display:none !important">
                 <p id="modal-form-status" style="text-align: center; margin-top: 15px; font-weight: 500; min-height: 1.2em;"></p>
                 <div style="text-align: center; margin-top:15px;">
-                    <button type="submit" class="cta-button" style="background-color: var(--primary-blue); color: var(--light-text); padding: 12px 25px;">Send Message</button>
+                    <button type="submit" class="cta-button" style="padding: 12px 30px;">Send Message</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript - Unchanged from original for stability -->
+    <!-- Toast container elements -->
+    <div class="toast-container" id="toastContainer">
+        <span class="toast-icon" id="toastIcon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </span>
+        <span id="toastMsg">Action complete.</span>
+    </div>
+
     <script>
         console.log("PagePebble Website Script: Initializing...");
 
@@ -591,8 +1769,6 @@
         const currentYearEl = document.getElementById('current-year');
         if (currentYearEl) {
             currentYearEl.textContent = new Date().getFullYear();
-        } else {
-            console.error("Element with ID 'current-year' not found.");
         }
         
         // Set effective date for privacy policy
@@ -601,8 +1777,6 @@
             const today = new Date();
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             effectiveDateEl.textContent = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
-        } else {
-            console.warn("Element with ID 'effective-date' not found (this is inside the privacy modal).");
         }
 
         // --- Privacy Policy Modal Logic ---
@@ -716,7 +1890,7 @@
                 const statusElement = modalFormStatusElement;
 
                 statusElement.textContent = "Sending...";
-                statusElement.style.color = "var(--primary-blue)";
+                statusElement.style.color = "var(--accent-purple)";
                 form.querySelector('button[type="submit"]').disabled = true;
 
                 try {
@@ -728,8 +1902,9 @@
 
                     if (response.ok) {
                         statusElement.textContent = "Thanks for your message! We'll be in touch soon.";
-                        statusElement.style.color = "green";
+                        statusElement.style.color = "var(--accent-teal)";
                         form.reset(); 
+                        setTimeout(closeContactFormModal, 2000);
                     } else {
                         const responseData = await response.json().catch(() => ({message: "An unexpected error occurred."})); 
                         statusElement.textContent = responseData.errors ? responseData.errors.map(e => e.message).join(", ") : responseData.message || "Oops! There was a problem submitting your form.";
@@ -764,8 +1939,138 @@
             }
         });
 
+        // ------------------- VIRTUAL STICKY NOTE LOGIC -------------------
+        const virtualNote = document.getElementById('virtualNote');
+        const virtualCollapseBtn = document.getElementById('virtualCollapseBtn');
+        const virtualSaving = document.getElementById('virtualSaving');
+
+        const THEME_STYLES = {
+            'sunset-orange': { bg: '#FFDEA8', text: '#301F00', accent: '#815600', icon: '#51443A' },
+            'sakura-pink': { bg: '#FFD8E4', text: '#31111D', accent: '#984061', icon: '#503E45' },
+            'ocean-breeze': { bg: '#C2E7FF', text: '#001D35', accent: '#00639B', icon: '#42474E' },
+            'forest-sage': { bg: '#C7E6C1', text: '#002205', accent: '#1B6C30', icon: '#414941' },
+            'royal-plum': { bg: '#F3DAFF', text: '#250040', accent: '#8222C8', icon: '#4C414D' },
+            'minty-teal': { bg: '#A3F0E5', text: '#00201D', accent: '#006A60', icon: '#3F4947' },
+            'lavender-dream': { bg: '#E9DDFF', text: '#221932', accent: '#654FA3', icon: '#4A4458' },
+            'charcoal-night': { bg: '#4A454E', text: '#E8DEF8', accent: '#D2BBFF', icon: '#CAC4CF' }
+        };
+
+        function changeVirtualTheme(themeName, el) {
+            document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('active'));
+            if(el) el.classList.add('active');
+
+            const vars = THEME_STYLES[themeName];
+            if(vars) {
+                virtualNote.style.setProperty('--n-bg', vars.bg);
+                virtualNote.style.setProperty('--n-text', vars.text);
+                virtualNote.style.setProperty('--n-accent', vars.accent);
+                virtualNote.style.setProperty('--n-icon', vars.icon);
+            }
+            triggerVirtualSaving();
+        }
+
+        function triggerVirtualSaving() {
+            virtualSaving.classList.add('visible');
+            setTimeout(() => {
+                virtualSaving.classList.remove('visible');
+            }, 1000);
+        }
+
+        virtualCollapseBtn.addEventListener('click', () => {
+            const isCollapsed = virtualNote.classList.toggle('collapsed');
+            if (isCollapsed) {
+                virtualCollapseBtn.innerHTML = `<svg viewBox="0 -960 960 960"><path d="M480-134.62 313.08-301.54l43.38-43.38L480-221.38l123.54-123.54 43.38 43.38L480-134.62Zm-123.54-478L313.08-656 480-822.92 646.92-656l-43.38 43.38L480-736.16 356.46-612.62Z"/></svg>`;
+                virtualCollapseBtn.title = "Expand Note";
+            } else {
+                virtualCollapseBtn.innerHTML = `<svg viewBox="0 -960 960 960"><path d="M356-173.85 313.85-216 480-382.15 646.15-216 604-173.85l-124-124-124 124Zm124-404L313.85-744 356-786.15l124 124 124-124L646.15-744 480-577.85Z"/></svg>`;
+                virtualCollapseBtn.title = "Collapse Note";
+            }
+        });
+
+        // ------------------- TOAST BANNER NOTIFICATIONS -------------------
+        function showToast(message, isLink = false) {
+            const container = document.getElementById('toastContainer');
+            const msgSpan = document.getElementById('toastMsg');
+            const iconSpan = document.getElementById('toastIcon');
+
+            msgSpan.textContent = message;
+
+            if (isLink) {
+                iconSpan.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="#2dd4bf"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="#2dd4bf"/></svg>`;
+            } else {
+                iconSpan.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
+            }
+
+            container.classList.add('visible');
+
+            // Hide toast after 3s
+            if (window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => {
+                container.classList.remove('visible');
+            }, 3000);
+        }
+
+        function triggerRowRedirection(url, title) {
+            showToast(`Mock Action: Navigating to page context: ${title} (${url})`, true);
+        }
+
+        function triggerNavbarAction(actionName) {
+            if (actionName === 'Delete All') {
+                showToast("Mock Action: All page pebbles deleted successfully.");
+            } else if (actionName === 'Export') {
+                showToast("Mock Action: 5 notes compiled & exported as pagepebble-backup.json");
+            } else {
+                showToast(`Mock Action: Triggered notes backup ${actionName}.`);
+            }
+        }
+
+        // ------------------- VIRTUAL NOTES LIST FILTERING -------------------
+        const filterChips = document.querySelectorAll('.virtual-filter-chip');
+        const noteRows = document.querySelectorAll('.virtual-note-row');
+        const treeGroups = document.querySelectorAll('.tree-group');
+        const emptyMessage = document.getElementById('emptyMessage');
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+
+                const filterValue = chip.textContent.trim().toLowerCase().replace('#', '');
+                let visibleNotesCount = 0;
+
+                treeGroups.forEach(group => {
+                    let visibleNotesInGroup = 0;
+                    const rowsInGroup = group.querySelectorAll('.virtual-note-row');
+
+                    rowsInGroup.forEach(row => {
+                        const tags = row.getAttribute('data-tags').split(',');
+                        if (filterValue === 'all notes' || tags.includes(filterValue)) {
+                            row.style.display = 'flex';
+                            visibleNotesInGroup++;
+                            visibleNotesCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+
+                    if (visibleNotesInGroup > 0) {
+                        group.style.display = 'flex';
+                    } else {
+                        group.style.display = 'none';
+                    }
+                });
+
+                if (visibleNotesCount === 0) {
+                    emptyMessage.style.display = 'block';
+                } else {
+                    emptyMessage.style.display = 'none';
+                }
+
+                showToast(`Mock Action: Filtering notes dashboard by ${chip.textContent.trim()}`);
+            });
+        });
+
         console.log("PagePebble Website Script: Initialization complete.");
     </script>
-
 </body>
 </html>
